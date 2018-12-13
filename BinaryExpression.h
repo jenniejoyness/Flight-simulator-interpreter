@@ -15,5 +15,6 @@ public:
     BinaryExpression(Expression *leftExpression, Expression *rightExpression) : leftExpression(leftExpression),
                                                                                 rightExpression(rightExpression) {}
 
+
 };
 #endif //MILLSTONE_BINARYEXPRESSION_H
