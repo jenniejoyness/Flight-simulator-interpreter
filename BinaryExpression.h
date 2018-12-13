@@ -11,7 +11,6 @@ protected:
     Expression* rightExpression;
 
 public:
-    //jennie
     BinaryExpression(Expression *leftExpression, Expression *rightExpression) : leftExpression(leftExpression),
                                                                                 rightExpression(rightExpression) {}
 
