@@ -8,5 +8,6 @@ public:
 
     double Calculate() {
         return leftExpression->Calculate() - rightExpression->Calculate();
+        int x;
     }
 };
