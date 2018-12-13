@@ -11,6 +11,7 @@ protected:
     Expression* rightExpression;
 
 public:
+    //kjshfkjsh
     BinaryExpression(Expression *leftExpression, Expression *rightExpression) : leftExpression(leftExpression),
                                                                                 rightExpression(rightExpression) {}
 
