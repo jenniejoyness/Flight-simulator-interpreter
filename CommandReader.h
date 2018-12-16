@@ -22,7 +22,7 @@ public:
         commandMap.insert(pair<string, Command>())
     }
     vector<string> lexer(string line);
-    void parser(vector<string>);
+    void parser(vector<string>                      );
 
 };
 
