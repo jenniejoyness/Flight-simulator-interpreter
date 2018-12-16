@@ -22,7 +22,24 @@ int main() {
 
     }*/
     ShuntingYard sh;
-    string s = ("(2-3)*4") ;
-    cout << sh.infixToPostfix(s) << std::endl;
+    //
+    vector<string> s  ;
+    s.push_back("(");
+    s.push_back("4");
+    s.push_back("-");
+    s.push_back("3");
+    s.push_back(")");
+    s.push_back("*");
+    s.push_back("(");
+    s.push_back("10");
+    s.push_back("/");
+    s.push_back("2");
+    s.push_back(")");
+    vector<string> g = sh.infixToPostfix(s);
+    for (int i = 0; i < g.size(); ++i){
+        //cout<<g[i];
+    }
+    Expression*e = sh.stringToExpression(g);
+    cout<<e->Calculate()<<endl;
     return 0;
 }
