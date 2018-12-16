@@ -14,15 +14,15 @@
 using namespace std;
 
 class CommandReader {
-    map<string, Command> commandMap;
+    //map<string, Command> commandMap;
     map<string, double> symbolTable;
 
 public:
     CommandReader() {
-        commandMap.insert(pair<string, Command>())
+        //commandMap.insert(pair<string, Command>())
     }
     vector<string> lexer(string line);
-    void parser(vector<string>                      );
+    //void parser(vector<string>);
 
 };
 

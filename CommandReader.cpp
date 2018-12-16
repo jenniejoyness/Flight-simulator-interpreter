@@ -13,9 +13,12 @@ vector<string> CommandReader::lexer(string line) {
     data.push_back(line.substr(0, pos));
     return data;
 }
+/*
 
 void CommandReader::parser(vector<string> lineData) {
-    Command* command = commandMap.find(lineData[0])->second;
+  */
+/*  Command* command = commandMap.find(lineData[0])->second;
     lineData.erase(lineData.begin());
-    command->doCommand(lineData);
-}
+    command->doCommand(lineData);*//*
+
+}*/
