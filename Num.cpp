@@ -1,7 +1,7 @@
 
 #include "Expression.h"
 
-class Num : Expression {
+class Num : public Expression {
 private:
     double num;
 
