@@ -1,6 +1,6 @@
 
 #include "CommandReader.h"
-
+#include <regex>
 
 vector<string> CommandReader::lexer(string line) {
     vector<string> data;
@@ -13,12 +13,16 @@ vector<string> CommandReader::lexer(string line) {
     data.push_back(line.substr(0, pos));
     return data;
 }
-/*
+
 
 void CommandReader::parser(vector<string> lineData) {
-  */
-/*  Command* command = commandMap.find(lineData[0])->second;
-    lineData.erase(lineData.begin());
-    command->doCommand(lineData);*//*
 
-}*/
+// Command* command = commandMap.find(lineData[0])->second;
+    lineData.erase(lineData.begin());
+   // command->doCommand(lineData);*//*
+
+}
+    vector<string> CommandReader::openDataServerRegex(string line) {
+        /*regex expression("([-+]?[0-9]\\.?[0-9]+[\\/\\+\\-\\])+([-+]?[0-9]*\\.?[0-9]+)");*/
+        regex expression("^[-+(][[:digit:]]+[)]([-+/][-+(][[:digit:]]+[)])$");
+    }

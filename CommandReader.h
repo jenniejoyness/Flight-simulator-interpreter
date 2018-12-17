@@ -10,11 +10,12 @@
 #include <hash_map>
 #include <map>
 #include "Command.h"
+#include "Expression.h"
 
 using namespace std;
 
 class CommandReader {
-    //map<string, Command> commandMap;
+    map<string, Expression*> commandMap;
     map<string, double> symbolTable;
 
 public:
@@ -22,7 +23,8 @@ public:
         //commandMap.insert(pair<string, Command>())
     }
     vector<string> lexer(string line);
-    //void parser(vector<string>);
+    void parser(vector<string>);
+    vector<string> openDataServerRegex(string line);
 
 };
 

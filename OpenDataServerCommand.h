@@ -1,0 +1,14 @@
+//
+// Created by jennie on 12/17/18.
+//
+
+#ifndef MILLSTONE_OPENDATASERVERCOMMAND_H
+#define MILLSTONE_OPENDATASERVERCOMMAND_H
+
+
+class OpenDataServerCommand {
+
+};
+
+
+#endif //MILLSTONE_OPENDATASERVERCOMMAND_H
