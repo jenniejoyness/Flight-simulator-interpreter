@@ -3,6 +3,7 @@
 #include <vector>
 #include "CommandReader.h"
 #include "ShuntingYard.h"
+#include <regex>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ int main() {
         commandReader.parser(data);
 
     }*/
-    ShuntingYard sh;
+  /*  ShuntingYard sh;
     //
     vector<string> s  ;
     s.push_back("(");
@@ -40,6 +41,7 @@ int main() {
         //cout<<g[i];
     }
     Expression*e = sh.stringToExpression(g);
-    cout<<e->Calculate()<<endl;
+    cout<<e->Calculate()<<endl;*/
+    // Target sequence
     return 0;
 }

@@ -16,5 +16,4 @@ public:
     bool isOperator(string s);
 };
 
-
 #endif //MILLSTONE_SHUNTINGYARD_H
