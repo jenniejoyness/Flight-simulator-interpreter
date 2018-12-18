@@ -21,9 +21,10 @@ int ShuntingYard::getPriority(string C)
     return 0;
 }
 
-vector<string> ShuntingYard::infixToPostfix(vector<string> s){
+Expression* ShuntingYard::infixToPostfix(string str){
     stack<string> stack;
     stack.push("N");
+    vector<string> s = splitString(str);
     int l = s.size();
     vector<string>  output;
     for(int i = 0; i < l; i++)
@@ -70,7 +71,7 @@ vector<string> ShuntingYard::infixToPostfix(vector<string> s){
         stack.pop();
         output.push_back((c));
     }
-    return output;
+    return stringToExpression(output);
 }
 
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
@@ -111,4 +112,27 @@ bool ShuntingYard::isOperator(string s){
         return true;
     }
     return false;
+}
+
+vector<string> ShuntingYard::splitString(string str) {
+    vector<string> chopped;
+    int i = 0;
+    string s;
+    //going over the whole string
+    while (i != str.length()) {
+        //if is a number
+        if(!isOperator(to_string(str[i])) && to_string(str[i])!= "(" && to_string(str[i])!= ")") {
+            s += str[i];
+        } else {
+            if (s != ""){
+                chopped.push_back(s);
+            }
+            //adding operator or '(' or ')'
+            chopped.push_back(to_string(str[i]));
+            s = "";
+        }
+
+        i++;
+    }
+    return chopped;
 }

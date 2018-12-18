@@ -9,9 +9,10 @@ using namespace std;
 
 class ShuntingYard {
 public:
+    vector<string> splitString(string str);
     int getPriority(string C);
     //TODO - send with spaces inbetween chars
-    vector<string>  infixToPostfix(vector<string> infix);
+    Expression*  infixToPostfix(string str);
     Expression* stringToExpression(vector<string>  postfix);
     bool isOperator(string s);
 };

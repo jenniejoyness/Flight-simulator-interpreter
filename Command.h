@@ -10,6 +10,7 @@ using namespace std;
 
 class Command{
 public:
-    virtual void doCommand(vector<string>) = 0;
+    virtual void doCommand() = 0;
+    virtual void setParameters(vector<string> params) = 0;
 };
 #endif //MILLSTONE_COMMAND_H

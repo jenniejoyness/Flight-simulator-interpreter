@@ -11,20 +11,25 @@
 #include <map>
 #include "Command.h"
 #include "Expression.h"
+#include "ExpressionCommand.h"
+#include "OpenDataServerCommand.h"
 
 using namespace std;
 
-class CommandReader {
+class Reader {
     map<string, Expression*> commandMap;
     map<string, double> symbolTable;
 
 public:
-    CommandReader() {
-        //commandMap.insert(pair<string, Command>())
-    }
+    Reader();
+    vector<string> split(string str);
     vector<string> lexer(string line);
     void parser(vector<string>);
     vector<string> openDataServerRegex(string line);
+    string addSpaces(string str);
+    bool isOperator(char s);
+    void addParameter(int j, int i, vector<string>&params, vector<string> line);
+    vector<string> findParameters(vector<string> line);
 
 };
 

@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "CommandReader.h"
+#include "Reader.h"
 #include "ShuntingYard.h"
 #include <regex>
 
@@ -43,5 +43,15 @@ int main() {
     Expression*e = sh.stringToExpression(g);
     cout<<e->Calculate()<<endl;*/
     // Target sequence
+    Reader reader;
+    string s = "rudder = (ho - heading)/20";
+    string g = reader.addSpaces(s);
+    cout<<g;
+    vector<string> f = reader.lexer(g);
+    vector<string> h = reader.findParameters(f);
+    //reader.parser(h);
+    vector<int > sd = {1, 2,4};
+    sd.erase(sd.begin() +1);
+
     return 0;
 }
