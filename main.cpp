@@ -44,7 +44,7 @@ int main() {
     cout<<e->Calculate()<<endl;*/
     // Target sequence
     Reader reader;
-    string s = "rudder = (ho - heading)/20";
+    string s = "rudder = bind ""abc";
     string g = reader.addSpaces(s);
     cout<<g;
     vector<string> f = reader.lexer(g);
