@@ -30,7 +30,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
     for(int i = 0; i < l; i++)
     {
         // If the scanned character is an operand, add it to output string.
-        if(!isOperator(s[i]) && s[i]!= "(" && s[i]!= ")")
+        if(!isOperator(s[i][0]) && s[i]!= "(" && s[i]!= ")")
             output.push_back((s[i]));
 
         // If the scanned character is an ‘(‘, push it to the stack.
@@ -78,7 +78,7 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
 
     for (int i = 0; i < postfix.size(); ++i){
-        if(!isOperator(postfix[i])){
+        if(!isOperator(postfix[i][0])){
             stack.push(new Num(stod(postfix[i])));
         }
         else {
@@ -107,8 +107,8 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     return result;
 }
 
-bool ShuntingYard::isOperator(string s){
-    if (s == "+" || s == "-" || s == "/" || s == "*"){
+bool ShuntingYard::isOperator(char s){
+    if (s == '+' || s == '-' || s == '/' || s == '*'){
         return true;
     }
     return false;
@@ -121,18 +121,41 @@ vector<string> ShuntingYard::splitString(string str) {
     //going over the whole string
     while (i != str.length()) {
         //if is a number
-        if(!isOperator(to_string(str[i])) && to_string(str[i])!= "(" && to_string(str[i])!= ")") {
+        if(!isOperator(str[i]) && str[i]!= '(' && str[i]!= ')' && str[i]!= ' ') {
             s += str[i];
         } else {
             if (s != ""){
                 chopped.push_back(s);
             }
             //adding operator or '(' or ')'
-            chopped.push_back(to_string(str[i]));
+            if (str[i]!= ' ') {
+                switch (str[i]) {
+                    case 42:
+                        chopped.push_back("*");
+                        break;
+                    case 43:
+                        chopped.push_back("+");
+                        break;
+                    case 45:
+                        chopped.push_back("-");
+                        break;
+                    case 47:
+                        chopped.push_back("/");
+                        break;
+                    case 40:
+                        chopped.push_back("(");
+                        break;
+                    case 41:
+                        chopped.push_back(")");
+                        break;
+                }
+
+            }
             s = "";
         }
 
         i++;
     }
+    chopped.push_back(s);
     return chopped;
 }

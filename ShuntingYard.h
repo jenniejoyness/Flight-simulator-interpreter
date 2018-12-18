@@ -14,7 +14,7 @@ public:
     //TODO - send with spaces inbetween chars
     Expression*  infixToPostfix(string str);
     Expression* stringToExpression(vector<string>  postfix);
-    bool isOperator(string s);
+    bool isOperator(char s);
 };
 
 #endif //MILLSTONE_SHUNTINGYARD_H
