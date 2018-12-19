@@ -5,12 +5,11 @@
 #ifndef MILLSTONE_EXPRESSIONCOMMAND_H
 #define MILLSTONE_EXPRESSIONCOMMAND_H
 
-
 #include "Command.h"
 #include "Expression.h"
 
 
-class ExpressionCommand : public Expression{
+class ExpressionCommand : public Expression {
 private:
     Command* command;
 public:
