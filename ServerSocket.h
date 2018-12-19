@@ -1,9 +1,10 @@
 //
-// Created by renana on 12/19/18.
+// Created by renana on 12/18/18.
 //
 
 #ifndef MILLSTONE_SOCKET_H
 #define MILLSTONE_SOCKET_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -16,17 +17,22 @@
 #include <sys/socket.h>
 #include <map>
 #include <netinet/in.h>
+#include "Socket.h"
+#include "Data.h"
+
+
 using namespace std;
 
-class Socket {
-protected:
-    struct sockaddr_in socket;
-    map<string,string> varPlaces;
-    int id;
+class ServerSocket{
+
+    struct sockaddr_in serverSocket;
+
 public:
-    virtual void* openSocket(void* arg) = 0;
-    virtual void* getSocket() = 0;
+    ServerSocket();
+    static void* openSocket(void* arg);
+    void* getSocket(void* arg);
 
 };
+
 
 #endif //MILLSTONE_SOCKET_H

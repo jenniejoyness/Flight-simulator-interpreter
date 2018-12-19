@@ -5,7 +5,6 @@
 #include <list>
 
 Reader::Reader() {
-
     commandMap.insert(pair<string, Expression *>("openDataServer",
                                                  new ExpressionCommand(new OpenDataServerCommand())));
 
@@ -134,6 +133,13 @@ vector<string> Reader::findParameters(vector<string> line) {
             startIndexParameter = i + 1;
             previousIsNumber = false;
             previousIsCloseingBrackets = false;
+        } else if(line[i] == "=") {
+            addParameter(startIndexParameter, i - 1, params, line);
+            //enter = as parameter
+            addParameter(i, i, params, line);
+            startIndexParameter = i + 1;
+            previousIsNumber = false;
+            previousIsCloseingBrackets = false;
         } else {
             //this iteration the string is a number or an operator-
             // if is either num num or closing brackets num
@@ -173,3 +179,4 @@ vector<string> Reader::split(string line) {
     return data;
 
 }
+

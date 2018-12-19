@@ -2,8 +2,9 @@
 // Created by renana on 12/19/18.
 //
 
-#ifndef MILLSTONE_SOCKET_H
-#define MILLSTONE_SOCKET_H
+#ifndef MILLSTONE_COSTUMERSOCKET_H
+#define MILLSTONE_COSTUMERSOCKET_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -18,15 +19,19 @@
 #include <netinet/in.h>
 using namespace std;
 
-class Socket {
-protected:
-    struct sockaddr_in socket;
+
+class ClientSocket {
+    struct sockaddr_in serverSocket;
     map<string,string> varPlaces;
     int id;
+
 public:
-    virtual void* openSocket(void* arg) = 0;
-    virtual void* getSocket() = 0;
+    ClientSocket();
+
+    static void* openSocket(void* arg);
+    void* getSocket(void* arg);
 
 };
 
-#endif //MILLSTONE_SOCKET_H
+
+#endif //MILLSTONE_COSTUMERSOCKET_H

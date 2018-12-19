@@ -19,9 +19,6 @@ using namespace std;
 class Reader {
     map<string, Expression*> commandMap;
     map<string, double> symbolTable;
-    vector<vector<string>> whileParams;
-    bool endOfWhile = false;
-    bool inWhile = false;
 
 public:
     Reader();
@@ -33,8 +30,6 @@ public:
     bool isOperator(char s);
     void addParameter(int j, int i, vector<string>&params, vector<string> line);
     vector<string> findParameters(vector<string> line);
-    void readScript(string line);
-
 
 };
 

@@ -1,37 +1,25 @@
 //
-// Created by jennie on 12/17/18.
+// Created by renana on 12/18/18.
 //
 
-#include "OpenDataServerCommand.h"
-#include "ShuntingYard.h"
+#include "ServerSocket.h"
+#include <iostream>
+#include "ServerSocket.h"
 #include <pthread.h>
-#include <thread>
-#include <stdio.h>
-#include <stdlib.h>
-#include <netdb.h>
-#include <unistd.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <sys/socket.h>
 
 struct MyParams {
     int port;
     int hz;
+    Data* data;
 };
 
-void OpenDataServerCommand::setParameters(vector<string> params) {
-    ShuntingYard shuntingYard;
-    this->port = (int)shuntingYard.infixToPostfix(params[0])->Calculate();
-    this->HZ = (int)shuntingYard.infixToPostfix(params[1])->Calculate();
-}
-
-
-void* openServer(void *arg) {
+void* ServerSocket::openSocket(void* arg) {
     struct MyParams* params = (struct MyParams*) arg;
+
     int sockfd, newsockfd, portno, clilen;
     char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
-    int  n;
+    int n;
 
     /* First call to socket() function */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -64,6 +52,7 @@ void* openServer(void *arg) {
 
     /* Accept actual connection from the client */
     newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    std::cout << "hii" << endl;
 
     if (newsockfd < 0) {
         perror("ERROR on accept");
@@ -71,32 +60,15 @@ void* openServer(void *arg) {
     }
 
     /* If connection is established then start communicating */
+    std::cout << "hii" << endl;
     bzero(buffer,256);
     n = read( newsockfd,buffer,255 );
+    //todo what are we getting from the client, and what maps to update
 
-    if (n < 0) {
-        perror("ERROR reading from socket");
-        exit(1);
-    }
-
-    printf("Here is the message: %s\n",buffer);
-
-    /* Write a response to the client */
-    n = write(newsockfd,"I got your message",18);
-
-    if (n < 0) {
-        perror("ERROR writing to socket");
-        exit(1);
-    }
-}
-
-//djkgfjkdz
-void OpenDataServerCommand::doCommand() {
-    /*struct MyParams* params = new MyParams();
-    params->port = this->port;
-    params->hz = this->HZ;
-    pthread_t id;
-    pthread_create(&id, nullptr, openServer, params);*/
-    //return;
 
 }
+
+void *ServerSocket::getSocket(void *arg)  {
+
+}
+
