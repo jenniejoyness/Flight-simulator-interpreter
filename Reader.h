@@ -17,8 +17,8 @@
 using namespace std;
 
 class Reader {
-    map<string, Expression*> commandMap;
-    map<string, double> symbolTable;
+    map<string, ExpressionCommand*> commandMap;
+    Data* data;
 
 public:
     Reader();

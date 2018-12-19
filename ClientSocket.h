@@ -22,12 +22,9 @@ using namespace std;
 
 class ClientSocket {
     struct sockaddr_in serverSocket;
-    map<string,string> varPlaces;
-    int id;
 
 public:
     ClientSocket();
-
     static void* openSocket(void* arg);
     void* getSocket(void* arg);
 

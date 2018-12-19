@@ -5,6 +5,7 @@
 #include <list>
 
 Reader::Reader() {
+    this->data = new Data();
     commandMap.insert(pair<string, Expression *>("openDataServer",
                                                  new ExpressionCommand(new OpenDataServerCommand())));
 
@@ -20,9 +21,9 @@ vector<string> Reader::lexer(string line) {
  *
  */
 void Reader::parser(vector<string> lineData) {
-    Expression *expression;
+    ExpressionCommand *expression;
     //if in the first place found a symbol
-    if (symbolTable.find(lineData[0]) != symbolTable.end()){
+    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()){
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
@@ -33,11 +34,9 @@ void Reader::parser(vector<string> lineData) {
         //erase the command
         lineData.erase(lineData.begin());
     }
-
-
-    //setting the paramters of the expressioncommand
-    dynamic_cast<ExpressionCommand *>(expression)->getCommand()->setParameters(lineData);
-    //will calculate paramters and execute the command
+    //setting the parameters of the expressioncommand
+    expression->getCommand()->setParameters(lineData, data);
+    //will calculate parameters and execute the command
     expression->Calculate();
 }
 

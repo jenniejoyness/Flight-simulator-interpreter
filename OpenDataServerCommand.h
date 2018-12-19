@@ -14,7 +14,6 @@ class OpenDataServerCommand: public Command {
 public:
     void doCommand();
     void setParameters(vector<string> params, Data* data);
-    //void* openServer(void* arg);
 
     struct MyParams {
         int port;
