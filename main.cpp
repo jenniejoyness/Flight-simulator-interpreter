@@ -11,27 +11,27 @@ using namespace std;
 ifstream file;
 
 int main() {
- /*   file.open("script.txt", ifstream::in | ifstream::app);
-    if (!file) {
-        throw "Failed opening file";
-    }
-    CommandReader commandReader;
-    string buffer;
-    vector<string> data;
-    while (getline(file,buffer)) {
-        data = commandReader.lexer(buffer);
-        commandReader.parser(data);
+    /*   file.open("script.txt", ifstream::in | ifstream::app);
+       if (!file) {
+           throw "Failed opening file";
+       }
+       CommandReader commandReader;
+       string buffer;
+       vector<string> data;
+       while (getline(file,buffer)) {
+           data = commandReader.lexer(buffer);
+           commandReader.parser(data);
 
-    }*/
-    ShuntingYard sh;
+       }*/
+    //ShuntingYard sh;
     //
-    string s = "( 1 + 4 ) * 9";
-    Expression*e = sh.infixToPostfix(s);
+    //string s = "( 1 + 4 ) * 9";
+    //Expression*e = sh.infixToPostfix(s);
 //    for (int i = 0; i < g.size(); ++i){
 //        //cout<<g[i];
 //    }
 //    Expression*e = sh.;
-    cout<<e->Calculate()<<endl;
+    //cout<<e->Calculate()<<endl;
     // Target sequence
 //    Reader reader;
 //    string s = "rudder = bind ""abc";
@@ -42,8 +42,10 @@ int main() {
 //    //reader.parser(h);
 //    vector<int > sd = {1, 2,4};
 //    sd.erase(sd.begin() +1);
-    //Socket* s = new Socket();
-    //s->openFlightSocket("5400");
+    Socket *s = new Socket();
+    s->openFlightSocket("5400");
+
+    while (true) {}
 
     return 0;
 }
