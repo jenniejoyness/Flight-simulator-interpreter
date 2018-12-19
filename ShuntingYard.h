@@ -11,7 +11,6 @@ class ShuntingYard {
 public:
     vector<string> splitString(string str);
     int getPriority(string C);
-    //TODO - send with spaces inbetween chars
     Expression*  infixToPostfix(string str);
     Expression* stringToExpression(vector<string>  postfix);
     bool isOperator(char s);

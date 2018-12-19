@@ -10,7 +10,11 @@
 
 void EqualCommand::doCommand() {
     data->updateSymbleTable(varTarget, value);
-
+    string path = data->getPath(varTarget);
+    //
+    string message = "set " + path + " " + to_string(value);
+    //todo check function!!!!
+    sendMessage(message);
 }
 
 void EqualCommand::setParameters(vector<string> params, Data *data) {
@@ -27,6 +31,7 @@ void EqualCommand::sendMessage(string str) {
     /* Now ask for a message from the user, this message
        * will be read by server
     */
+
     printf("Please enter the message: ");
     bzero(buffer, 256);
     fgets(buffer, 255, stdin);

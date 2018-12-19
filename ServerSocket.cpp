@@ -12,7 +12,11 @@ struct MyParams {
     int hz;
     Data* data;
 };
-
+/*
+ * opens the server socket and waits for the flight simulators connection.
+ * reads the updates that the simulator sends to this socket
+ * we will update the info given to the symbolmap in data
+ */
 void* ServerSocket::openSocket(void* arg) {
     struct MyParams* params = (struct MyParams*) arg;
 

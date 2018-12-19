@@ -6,7 +6,7 @@
 
 Reader::Reader() {
     this->data = new Data();
-    commandMap.insert(pair<string, Expression *>("openDataServer",
+    commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
                                                  new ExpressionCommand(new OpenDataServerCommand())));
 
 }

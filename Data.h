@@ -25,6 +25,8 @@ public:
     void addVarToPath(string var, string path);
     void addVarToSymbleTable(string var, double value);
     void updateSymbleTable(string var, double value);
+    string getPath(string var);
+
 
 };
 
