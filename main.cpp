@@ -42,8 +42,9 @@ int main() {
 //    //reader.parser(h);
 //    vector<int > sd = {1, 2,4};
 //    sd.erase(sd.begin() +1);
+
     Socket *s = new Socket();
-    s->openFlightSocket("5400");
+    s->DataReader();
 
     while (true) {}
 

@@ -92,11 +92,11 @@ void* openServer(void *arg) {
 
 //djkgfjkdz
 void OpenDataServerCommand::doCommand() {
-    struct MyParams* params = new MyParams();
+    /*struct MyParams* params = new MyParams();
     params->port = this->port;
     params->hz = this->HZ;
     pthread_t id;
-    //pthread_create(&id, nullptr, openServer, params);
-    return;
+    pthread_create(&id, nullptr, openServer, params);*/
+    //return;
 
 }

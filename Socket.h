@@ -36,7 +36,7 @@ public:
         }
     }
 
-    void openFlightSocket(string s);
+    static void* openFlightSocket(void* arg);
     void openClientSocket(string s);
     static void* getFlightSocket(void* arg);
     void* getClientSocket();

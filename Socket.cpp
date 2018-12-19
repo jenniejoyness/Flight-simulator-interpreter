@@ -5,8 +5,9 @@
 #include "Socket.h"
 #include <iostream>
 #include "Socket.h"
+#include <pthread.h>
 
-void Socket::openFlightSocket(string s) {
+void* Socket::openFlightSocket(void* arg) {
     //int sockfd, newsockfd, portno, clilen;
     // char buffer[256];
   /*  struct sockaddr_in cli_addr;
@@ -108,7 +109,7 @@ void *Socket::getFlightSocket(void *arg) {
 }
 
 void Socket::DataReader() {
-    std::cout<<"Waiting"<<endl;
+    /*std::cout<<"Waiting"<<endl;
     sockaddr_in client_sock;
     int client;
     int client_sock_fd = accept(id,(struct sockaddr*)&client_sock,(socklen_t*)&client);
@@ -116,5 +117,10 @@ void Socket::DataReader() {
 
     } else {
         std::cout << "hii" << endl;
-    }
+    }*/
+    //struct MyParams* params = new MyParams();
+    //params->port = this->port;
+    //params->hz = this->HZ;
+    pthread_t id;
+    pthread_create(&id, nullptr, openFlightSocket, nullptr);
 }
