@@ -3,7 +3,8 @@
 #include <vector>
 #include "Reader.h"
 #include "ShuntingYard.h"
-#include "Socket.h"
+#include "ServerSocket.h"
+#include "ClientSocket.h"
 #include <regex>
 
 using namespace std;
@@ -43,8 +44,13 @@ int main() {
 //    vector<int > sd = {1, 2,4};
 //    sd.erase(sd.begin() +1);
 
-    Socket *s = new Socket();
-    s->DataReader();
+    //Socket *s = new Socket();
+    //s->DataReader();
+    //ClientSocket::openSocket(nullptr);
+//    Data* d = new Data;
+//    d->addVarToSymbleTable("a",8);
+//    d->addVarToSymbleTable("b", 7);
+//    d->updateSymbleTable("a", 6);
 
     while (true) {}
 

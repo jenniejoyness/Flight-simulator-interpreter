@@ -4,11 +4,7 @@
 #include <regex>
 #include <list>
 
-Reader::Reader() {
-    commandMap.insert(pair<string, Expression *>("openDataServer",
-                                                 new ExpressionCommand(new OpenDataServerCommand())));
 
-}
 
 vector<string> Reader::lexer(string line) {
     string addedSpaces = addSpaces(line);
@@ -20,9 +16,9 @@ vector<string> Reader::lexer(string line) {
  *
  */
 void Reader::parser(vector<string> lineData) {
-    Expression *expression;
+    ExpressionCommand *expression;
     //if in the first place found a symbol
-    if (symbolTable.find(lineData[0]) != symbolTable.end()){
+    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()){
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
@@ -34,9 +30,9 @@ void Reader::parser(vector<string> lineData) {
         lineData.erase(lineData.begin());
     }
 
-
-    //setting the paramters of the expressioncommand
-    dynamic_cast<ExpressionCommand *>(expression)->getCommand()->setParameters(lineData);
+    Command* command = expression->getCommand();
+    //setting the parameters of the expressioncommand
+    command->setParameters(lineData,this->data);
     //will calculate paramters and execute the command
     expression->Calculate();
 }

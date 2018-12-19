@@ -17,15 +17,19 @@
 using namespace std;
 
 class Reader {
-    map<string, Expression*> commandMap;
-    map<string, double> symbolTable;
+    Data* data;
+    map<string, ExpressionCommand*> commandMap;
 
 public:
-    Reader();
+    Reader() {
+        this->data = new Data();
+        //todo insert commands
+        commandMap.insert(pair<string,ExpressionCommand*>
+                ("openDataServer",new ExpressionCommand(new OpenDataServerCommand)));
+    }
     vector<string> split(string str);
     vector<string> lexer(string line);
     void parser(vector<string>);
-    vector<string> openDataServerRegex(string line);
     string addSpaces(string str);
     bool isOperator(char s);
     void addParameter(int j, int i, vector<string>&params, vector<string> line);
