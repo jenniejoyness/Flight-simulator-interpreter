@@ -68,7 +68,9 @@ void* openServer(void *arg) {
     if (newsockfd < 0) {
         perror("ERROR on accept");
         exit(1);
-    }
+  ShuntingYard shuntingYard;
+    this->port = (int)shuntingYard.infixToPostfix(params[0])->Calculate();
+    this->HZ = (in  }
 
     /* If connection is established then start communicating */
     bzero(buffer,256);
