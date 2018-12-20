@@ -6,8 +6,11 @@
 #define MILLSTONE_IFCOMMAND_H
 
 
-class IfCommand {
+#include "ConditionCommand.h"
 
+class IfCommand : ConditionCommand{
+public:
+    void doCommand();
 };
 
 

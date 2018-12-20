@@ -1,19 +1,20 @@
 
 #include "Reader.h"
 #include "ExpressionCommand.h"
+#include "ConditionCommand.h"
 #include <regex>
 #include <list>
 
 Reader::Reader() {
     this->data = new Data();
     commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
-                                                 new ExpressionCommand(new OpenDataServerCommand())));
+                                                        new ExpressionCommand(new OpenDataServerCommand())));
 
 }
 
 vector<string> Reader::lexer(string line) {
     string addedSpaces = addSpaces(line);
-    vector<string> chopped = split(addedSpaces);
+    vector<string> chopped = split(addedSpaces, " ");
     return findParameters(chopped);
 }
 
@@ -23,17 +24,16 @@ vector<string> Reader::lexer(string line) {
 void Reader::parser(vector<string> lineData) {
     ExpressionCommand *expression;
     //if in the first place found a symbol
-   /* if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()){
+    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
-        lineData.erase(lineData.begin()+1);
-    }*/
-   // else {
+        lineData.erase(lineData.begin() + 1);
+    } else {
         expression = commandMap.find(lineData[0])->second;
         //erase the command
         lineData.erase(lineData.begin());
-    //}
+    }
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command
@@ -62,11 +62,10 @@ string Reader::addSpaces(string str) {
 
             }
             if (i != str.size()) {
-                if ((str[i + 1]) !=  ' ') {
+                if ((str[i + 1]) != ' ') {
                     newString += str[i];
                     newString += " ";
-                }
-                else {
+                } else {
                     newString += str[i];
                 }
             }
@@ -99,7 +98,7 @@ bool Reader::isOperator(char s) {
  */
 void Reader::addParameter(int j, int i, vector<string> &params, vector<string> line) {
     string s = "";
-    if (line[j] == "-"){
+    if (line[j] == "-") {
         s += "0";
     }
 
@@ -132,7 +131,7 @@ vector<string> Reader::findParameters(vector<string> line) {
             startIndexParameter = i + 1;
             previousIsNumber = false;
             previousIsCloseingBrackets = false;
-        } else if(line[i] == "=") {
+        } else if (line[i] == "=") {
             addParameter(startIndexParameter, i - 1, params, line);
             //enter = as parameter
             addParameter(i, i, params, line);
@@ -144,11 +143,10 @@ vector<string> Reader::findParameters(vector<string> line) {
             // if is either num num or closing brackets num
             if ((previousIsNumber && !isOperator(line[i][0]))
                 || (previousIsCloseingBrackets && !isOperator(line[i][0]) && bracketsCounter == 0)) {
-                if (startIndexParameter == i){
-                    addParameter(startIndexParameter,i,params,line);
-                }
-                else {
-                    addParameter(startIndexParameter, i-1, params, line);
+                if (startIndexParameter == i) {
+                    addParameter(startIndexParameter, i, params, line);
+                } else {
+                    addParameter(startIndexParameter, i - 1, params, line);
                 }
 
                 startIndexParameter = i;
@@ -162,14 +160,13 @@ vector<string> Reader::findParameters(vector<string> line) {
         i++;
 
     }
-    addParameter(startIndexParameter, line.size()-1, params, line);
+    addParameter(startIndexParameter, line.size() - 1, params, line);
     return params;
 }
 
-vector<string> Reader::split(string line) {
+vector<string> Reader::split(string line, string delimiter) {
     vector<string> data;
     size_t pos = 0;
-    string delimiter = " ";
     while ((pos = line.find(delimiter)) != string::npos) {
         data.push_back(line.substr(0, pos));
         line.erase(0, pos + delimiter.length());
@@ -178,4 +175,64 @@ vector<string> Reader::split(string line) {
     return data;
 
 }
+
+/*
+ * deals with splitting the params of a condition command,
+ * and starts the do command of the condition map
+ */
+void Reader::conditionParser(string str) {
+    bool inAnotherCondtion = false;
+    bool bracketInNextLine = true;
+    int counter = 0;
+    string s;
+    vector<vector<string>> params;
+    //recieves all the commands of the while command
+    vector<string> chopped = split(str, "#");
+    //recieves condition
+    vector<string> condition = lexer(chopped[0]);
+    chopped.erase(chopped.begin());
+
+    //sending each command line to lexer and adding to list of commands for the whilecommand
+    for (int i = 0; i < chopped.size(); ++i) {
+        //if the line does not contains condition send to the lexer and add to params
+        if ((strstr(chopped[i].c_str(), "while") == NULL || strstr(chopped[i].c_str(), "if") == NULL)
+            && !inAnotherCondtion) {
+            params.push_back(lexer(chopped[i]));
+        } else {
+            //in another condition
+            inAnotherCondtion = true;
+            if (strstr(chopped[i].c_str(), "{") != NULL) {
+                counter++;
+                bracketInNextLine = false;
+            }
+        }
+        //counting the brackets of the next condition in order to find the end of this condition
+        if (inAnotherCondtion) {
+            //add to brackets counter is see an opening bracket
+            if (bracketInNextLine && strstr(chopped[i].c_str(), "{") != NULL) {
+                counter++;
+                //decrease the brackets, closing a condition
+            } else if (strstr(chopped[i].c_str(), "}") != NULL) {
+                counter--;
+            }
+            s += chopped[i];
+            //got to the end of the condition
+            if (counter == 0) {
+                vector<string> anotherConditionParams;
+                //add the whole condition in the condition as a string in the params
+                anotherConditionParams.push_back(s);
+                params.push_back(anotherConditionParams);
+                inAnotherCondtion = false;
+            }
+        }
+    }
+    //find expression command, set params for the new expression command
+    ExpressionCommand *expression = commandMap.find(params[0][0])->second;
+    //setting the parameters of the expressioncommand
+    expression->getCommand()->setParameters(condition, data);
+    dynamic_cast<ConditionCommand*>(expression)->setCommandsParam(params);
+    //will calculate parameters and execute the command
+    expression->Calculate();
+}
+
 

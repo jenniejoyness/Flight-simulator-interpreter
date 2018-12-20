@@ -6,8 +6,11 @@
 #define MILLSTONE_WHILECOMMAND_H
 
 
-class WhileCommand {
+#include "ConditionCommand.h"
 
+class WhileCommand : ConditionCommand {
+    void doCommand();
+    void setParameters(vector<string> params, Data *data);
 };
 
 

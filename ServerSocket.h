@@ -16,7 +16,6 @@
 
 #include <sys/socket.h>
 #include <map>
-#include <netinet/in.h>
 #include "Socket.h"
 #include "Data.h"
 

@@ -22,7 +22,7 @@ class Reader {
 
 public:
     Reader();
-    vector<string> split(string str);
+    vector<string> split(string str, string del);
     vector<string> lexer(string line);
     void parser(vector<string>);
     vector<string> openDataServerRegex(string line);
@@ -30,6 +30,7 @@ public:
     bool isOperator(char s);
     void addParameter(int j, int i, vector<string>&params, vector<string> line);
     vector<string> findParameters(vector<string> line);
+    void conditionParser(string str);
 
 };
 

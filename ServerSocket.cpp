@@ -95,5 +95,3 @@ void *ServerSocket::openSocket(void *arg) {
         }
     }
 }
-
-
