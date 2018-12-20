@@ -2,6 +2,7 @@
 #include "Reader.h"
 #include "ExpressionCommand.h"
 #include "ConditionCommand.h"
+#include "WhileCommand.h"
 #include <regex>
 #include <list>
 
@@ -10,6 +11,8 @@ Reader::Reader() {
     commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
                                                         new ExpressionCommand(new OpenDataServerCommand())));
 
+    commandMap.insert(pair<string, ExpressionCommand *>("while",
+                                                        new ExpressionCommand(new WhileCommand())));
 }
 
 vector<string> Reader::lexer(string line) {
@@ -24,16 +27,16 @@ vector<string> Reader::lexer(string line) {
 void Reader::parser(vector<string> lineData) {
     ExpressionCommand *expression;
     //if in the first place found a symbol
-    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
+    /*if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
         lineData.erase(lineData.begin() + 1);
-    } else {
+    } *///else {
         expression = commandMap.find(lineData[0])->second;
         //erase the command
         lineData.erase(lineData.begin());
-    }
+   // }
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command
@@ -87,7 +90,8 @@ string Reader::addSpaces(string str) {
 }
 
 bool Reader::isOperator(char s) {
-    if ((s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')) {
+    if ((s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
+    || s == '>' || s == '<' || s == '>=' || s == '<=' || s == '==' || s == '!=') {
         return true;
     }
     return false;
@@ -188,8 +192,8 @@ void Reader::conditionParser(string str) {
     vector<vector<string>> params;
     //recieves all the commands of the while command
     vector<string> chopped = split(str, "#");
-    //recieves condition
-    vector<string> condition = lexer(chopped[0]);
+    //add spaces to the condition string and split
+    vector<string> condition = split(addSpaces(chopped[0]), " ");
     chopped.erase(chopped.begin());
 
     //sending each command line to lexer and adding to list of commands for the whilecommand

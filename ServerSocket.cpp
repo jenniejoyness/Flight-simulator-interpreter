@@ -19,6 +19,7 @@ struct MyParams {
  * reads the updates that the simulator sends to this socket
  * we will update the info given to the symbolmap in data
  * TODO ADD VARS TO VECTOR
+ * TODO - DO WE NEED A LOCK??
  */
 void *ServerSocket::openSocket(void *arg) {
     vector<string> vars;

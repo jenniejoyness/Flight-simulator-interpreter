@@ -9,7 +9,7 @@
 
 class ConditionCommand : public Command {
 protected:
-    vector<string> condition;
+    string condition;
     vector<vector<string>> commands;
     Data* data;
 public:

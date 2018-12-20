@@ -4,12 +4,13 @@
 
 #include <cstring>
 #include "WhileCommand.h"
-#include "Reader.h"
+
 
 
 void WhileCommand::doCommand() {
-    Reader reader;
-    while(condition == true){
+
+    ConditionOperator;
+    while(true){
         for (int i = 0; i < commands.size(); ++i) {
             //if the command is not a while command send to parser to execute
             if (strstr(commands[i][0].c_str(), "while") == NULL || strstr(commands[i][0].c_str(), "if") == NULL) {
@@ -26,6 +27,11 @@ void WhileCommand::doCommand() {
 
 
 void WhileCommand::setParameters(vector<string> params, Data *data) {
-    this->condition = params;
+    this->condition = params[0];
     this->data = data;
+}
+
+void WhileCommand::stuff(string condition) {
+    string addedSpaces = reader.addSpaces(condition);
+    vector<string> chopped;
 }
