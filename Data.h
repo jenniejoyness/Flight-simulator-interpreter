@@ -28,6 +28,7 @@ public:
     string getPath(string var);
     void setSymbleTable();
     void setVarPath();
+    double getValueOfVar(string var);
 
 };
 

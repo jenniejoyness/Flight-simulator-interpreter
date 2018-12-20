@@ -98,3 +98,10 @@ map<string,double > Data::getsymbleTablehMap() {
 string Data::getPath(string var) {
     return varPath.find(var)->second;
 }
+
+/*
+ * find the value of the var from the map and return
+ */
+double Data::getValueOfVar(string var) {
+    return symbleTable.find(var)->second;
+}

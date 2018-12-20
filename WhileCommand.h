@@ -13,7 +13,6 @@ private:
 public:
     void doCommand();
     void setParameters(vector<string> params, Data *data);
-    void stuff(string condition);
 };
 
 

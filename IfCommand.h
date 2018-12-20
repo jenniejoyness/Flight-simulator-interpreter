@@ -11,6 +11,7 @@
 class IfCommand : ConditionCommand{
 public:
     void doCommand();
+    void setParameters(vector<string> params, Data *data);
 };
 
 
