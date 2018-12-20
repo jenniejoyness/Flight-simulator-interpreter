@@ -6,22 +6,27 @@
 #include <iostream>
 #include "ServerSocket.h"
 #include <pthread.h>
+#include <vector>
 
 struct MyParams {
     int port;
     int hz;
-    Data* data;
+    Data *data;
 };
+
 /*
  * opens the server socket and waits for the flight simulators connection.
  * reads the updates that the simulator sends to this socket
  * we will update the info given to the symbolmap in data
+ * TODO ADD VARS TO VECTOR
  */
-void* ServerSocket::openSocket(void* arg) {
-    struct MyParams* params = (struct MyParams*) arg;
+void *ServerSocket::openSocket(void *arg) {
+    vector<string> vars;
+    struct MyParams *params = (struct MyParams *) arg;
+    Data *data = params->data;
 
     int sockfd, newsockfd, portno, clilen;
-    char buffer[256];
+    char buffer[1024];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
@@ -51,11 +56,11 @@ void* ServerSocket::openSocket(void* arg) {
        * go in sleep mode and will wait for the incoming connection
     */
 
-    listen(sockfd,5);
+    listen(sockfd, 5);
     clilen = sizeof(cli_addr);
 
     /* Accept actual connection from the client */
-    newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, (socklen_t*)&clilen);
+    newsockfd = accept(sockfd, (struct sockaddr *) &cli_addr, (socklen_t *) &clilen);
     std::cout << "hii" << endl;
 
     if (newsockfd < 0) {
@@ -63,16 +68,32 @@ void* ServerSocket::openSocket(void* arg) {
         exit(1);
     }
 
-    /* If connection is established then start communicating */
-    std::cout << "hii" << endl;
-    bzero(buffer,256);
-    n = read( newsockfd,buffer,255 );
-    //todo what are we getting from the client, and what maps to update
+    //If connection is established then start communicating */
+    bzero(buffer, 1024);
 
+    //sleep for this->Hz
+    while (true) {
+        n = read(newsockfd, buffer, 1024);
+        string b = buffer;
+        if (n < 0) {
+            perror("ERROR reading from socket");
+            exit(1);
+        }
+        vector<string> line;
+        size_t pos = 0;
+        string delimiter = ",";
+        //splitting by ","
+        while ((pos = b.find(delimiter)) != string::npos) {
+            line.push_back(b.substr(0, pos));
+            b.erase(0, pos + delimiter.length());
+        }
+        line.push_back(b.substr(0, pos));
 
+        //update the map with new values read from the simulator
+        for (int i = 0; i < line.size(); ++i) {
+            data->updateSymbleTable(vars[i], stod(line[i]));
+        }
+    }
 }
 
-void *ServerSocket::getSocket(void *arg)  {
-
-}
 

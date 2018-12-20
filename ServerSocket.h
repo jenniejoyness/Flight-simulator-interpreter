@@ -30,7 +30,6 @@ class ServerSocket{
 public:
     ServerSocket();
     static void* openSocket(void* arg);
-    void* getSocket(void* arg);
 
 };
 

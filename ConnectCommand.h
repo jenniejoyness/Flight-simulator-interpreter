@@ -7,7 +7,7 @@
 
 
 #include "Command.h"
-
+//TODO - CHECK IF CLASS WORKS!!!!!!!
 class ConnectCommand : Command {
 private:
     string ipAddress;
@@ -17,7 +17,6 @@ private:
 public:
 void setParameters(vector<string> params, Data *data);
 void doCommand();
-
     struct MyParams {
         int port;
         string ipAddress;

@@ -19,14 +19,15 @@ private:
 public:
     map<string,string> getVarPathMap();
     map<string,double > getsymbleTablehMap();
-
+    Data();
     void setClientId(int id);
     int getClientId() const;
     void addVarToPath(string var, string path);
     void addVarToSymbleTable(string var, double value);
     void updateSymbleTable(string var, double value);
     string getPath(string var);
-
+    void setSymbleTable();
+    void setVarPath();
 
 };
 
