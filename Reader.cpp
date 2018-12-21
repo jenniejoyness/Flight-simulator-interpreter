@@ -3,16 +3,18 @@
 #include "ExpressionCommand.h"
 #include "ConditionCommand.h"
 #include "WhileCommand.h"
+#include "EqualCommand.h"
 #include <regex>
 #include <list>
 
 Reader::Reader() {
     this->data = new Data();
+
     commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
                                                         new ExpressionCommand(new OpenDataServerCommand())));
 
-    commandMap.insert(pair<string, ExpressionCommand *>("while",
-                                                        new ExpressionCommand(new WhileCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("=",
+                                                        new ExpressionCommand(new EqualCommand())));
 }
 
 vector<string> Reader::lexer(string line) {
@@ -26,17 +28,17 @@ vector<string> Reader::lexer(string line) {
  */
 void Reader::parser(vector<string> lineData) {
     ExpressionCommand *expression;
-    //if in the first place found a symbol
-    /*if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
+    //if in the first place found a symbol - meaning is an equal command
+    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
         lineData.erase(lineData.begin() + 1);
-    } *///else {
+    } else {
         expression = commandMap.find(lineData[0])->second;
         //erase the command
         lineData.erase(lineData.begin());
-   // }
+    }
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command

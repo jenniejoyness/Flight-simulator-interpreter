@@ -4,6 +4,7 @@
 #include "Reader.h"
 #include "ShuntingYard.h"
 #include "Socket.h"
+#include "WhileCommand.h"
 #include <regex>
 
 using namespace std;
@@ -15,7 +16,8 @@ int main() {
     if (!file) {
         throw "Failed opening file";
     }
-    Reader reader;
+
+    Reader* reader = new Reader();
     string buffer;
     vector<string> data;
     string conditionCommand;
@@ -41,11 +43,11 @@ int main() {
 
             if (counter == 0) {
                 inCondition = false;
-                reader.conditionParser(conditionCommand);
+                reader->conditionParser(conditionCommand);
             }
         } else {
-            data = reader.lexer(buffer);
-            reader.parser(data);
+            data = reader->lexer(buffer);
+            reader->parser(data);
         }
 
 

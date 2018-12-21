@@ -20,7 +20,7 @@ void EqualCommand::doCommand() {
     string path = data->getPath(varTarget);
     string message = "set " + path + " " + to_string(value);
     //sending message to simulator
-    sendMessage(message);
+    //sendMessage(message);
 }
 
 /*
