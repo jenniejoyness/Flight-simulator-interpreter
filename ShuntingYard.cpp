@@ -21,10 +21,14 @@ int ShuntingYard::getPriority(string C)
     return 0;
 }
 
+/*
+ * replaces the string with an expression object
+ */
 Expression* ShuntingYard::infixToPostfix(string str){
     stack<string> stack;
     stack.push("N");
-    vector<string> s = splitString(str);
+    //splitting the string into chunks and swapping the vars for numbers
+    vector<string> s = swapVars(splitString(str));
     int l = s.size();
     vector<string>  output;
     for(int i = 0; i < l; i++)
@@ -74,9 +78,9 @@ Expression* ShuntingYard::infixToPostfix(string str){
     return stringToExpression(output);
 }
 
+
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
-
     for (int i = 0; i < postfix.size(); ++i){
         if(!isOperator(postfix[i][0])){
             stack.push(new Num(stod(postfix[i])));
@@ -158,4 +162,17 @@ vector<string> ShuntingYard::splitString(string str) {
     }
     chopped.push_back(s);
     return chopped;
+}
+
+/*
+ * swaps the var in the map to the double value in the map
+ */
+vector<string> ShuntingYard::swapVars(vector<string> chunks) {
+    for (int i = 0; i < chunks.size(); ++i) {
+        //is a var in the symbol table map
+        if(data->getsymbleTablehMap().find(chunks[i]) != data->getsymbleTablehMap().end()){
+            chunks[i] = to_string(data->getValueOfVar(chunks[i]));
+        }
+    }
+    return chunks;
 }

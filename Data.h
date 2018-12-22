@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <map>
-
+#include <vector>
 using namespace std;
 
 class Data {
@@ -15,6 +15,7 @@ private:
     map<string,string> varPath;
     map<string, double > symbleTable;
     int clientId;
+    vector<string> vars;
 
 public:
     map<string,string> getVarPathMap();
@@ -29,6 +30,8 @@ public:
     void setSymbleTable();
     void setVarPath();
     double getValueOfVar(string var);
+    string getPathOfVar(string var);
+    bool isVar(string str);
 
 };
 

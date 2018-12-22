@@ -9,4 +9,5 @@ double ExpressionCommand::Calculate() {
     command->doCommand();
 }
 
-Command* ExpressionCommand::getCommand() { return command;}
+Command* ExpressionCommand::getCommand() {
+    return command;}

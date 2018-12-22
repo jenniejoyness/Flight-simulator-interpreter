@@ -4,6 +4,7 @@
 #include "ConditionCommand.h"
 #include "WhileCommand.h"
 #include "EqualCommand.h"
+#include "VarCommand.h"
 #include <regex>
 #include <list>
 
@@ -15,6 +16,8 @@ Reader::Reader() {
 
     commandMap.insert(pair<string, ExpressionCommand *>("=",
                                                         new ExpressionCommand(new EqualCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("=",
+                                                        new ExpressionCommand(new VarCommand())));
 }
 
 vector<string> Reader::lexer(string line) {

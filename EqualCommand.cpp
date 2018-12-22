@@ -13,14 +13,13 @@
  * calls sendmessage to write to the simulator
  */
 void EqualCommand::doCommand() {
-
     //updating the value in symbolmap
     data->updateSymbleTable(varTarget, value);
     //getting the path of the var
     string path = data->getPath(varTarget);
     string message = "set " + path + " " + to_string(value);
     //sending message to simulator
-    //sendMessage(message);
+    sendMessage(message);
 }
 
 /*
