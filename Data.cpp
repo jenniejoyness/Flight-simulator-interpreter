@@ -3,13 +3,12 @@
 #include "Data.h"
 
 Data::Data(){
+    vars.push_back("rudder");
+    vars.push_back("heading");
     setSymbleTable();
 }
 
 void Data::setSymbleTable() {
-    vector<string> vars;
-    vars.push_back("rudder");
-    vars.push_back("heading");
     for (int i = 0; i < vars.size(); ++i) {
         symbleTable.insert(pair<string,double>(vars[i],0));
     }
@@ -119,8 +118,22 @@ string Data::getPathOfVar(string var) {
  * returns true if str is a var
  */
 bool Data::isVar(string str) {
+
+    for (map<string,double>::iterator var = symbleTable.begin(); var !=symbleTable.end(); ++var) {
+        //str is a var in map
+        if ((*var).first == str){
+            return true;
+        }
+    }
+    return false;
+}
+
+/*
+ * if the var is an orginal var from the flight gear simulator
+ */
+bool Data::isGearVar(string str) {
     for (int i = 0; i <vars.size() ; ++i) {
-        if (vars[i] == str){
+        if(vars[i] == str){
             return true;
         }
     }

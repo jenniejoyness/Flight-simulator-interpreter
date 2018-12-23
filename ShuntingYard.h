@@ -11,6 +11,10 @@ using namespace std;
 class ShuntingYard {
     Data* data;
 public:
+    //TODO - CHANGE FROM NEW TO THE GIVEN DATA IN CONSTRUCTOR
+    ShuntingYard(){
+        this->data = new Data();
+    }
     vector<string> splitString(string str);
     int getPriority(string C);
     Expression*  infixToPostfix(string str);

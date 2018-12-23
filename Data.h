@@ -32,6 +32,7 @@ public:
     double getValueOfVar(string var);
     string getPathOfVar(string var);
     bool isVar(string str);
+    bool isGearVar(string str);
 
 };
 

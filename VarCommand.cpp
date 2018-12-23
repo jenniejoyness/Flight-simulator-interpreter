@@ -8,7 +8,8 @@ void VarCommand::setParameters(vector<string> params, Data *data) {
     //if has bind in command
     if(params.size() == 4){
         this->bind = true;
-        this->value = to_string(shuntingYard.infixToPostfix(params[3])->Calculate());
+        //this->value = to_string(shuntingYard.infixToPostfix(params[3])->Calculate());
+        this->value = params[3];
         //does not have bind
     } else{
         this->bind = false;
@@ -40,11 +41,13 @@ void VarCommand::binding() {
 
 void VarCommand::changingVarValue() {
     //if found the var in symbol table - send to equal command
-    if(data->getsymbleTablehMap().find(var) != data->getsymbleTablehMap().end()){
+    if(data->isGearVar(var)){
         //calling equal command
         Command* equalCommand = new EqualCommand();
-        vector<string> params = {var,value};
-        setParameters(params, data);
+        vector<string> params;
+        params.push_back(var);
+        params.push_back(value);
+        equalCommand->setParameters(params, data);
         equalCommand->doCommand();
         //is a new var in the symbol map, need to add to map
     } else {

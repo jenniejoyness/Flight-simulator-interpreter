@@ -29,6 +29,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
     stack.push("N");
     //splitting the string into chunks and swapping the vars for numbers
     vector<string> s = swapVars(splitString(str));
+
     int l = s.size();
     vector<string>  output;
     for(int i = 0; i < l; i++)
@@ -124,7 +125,7 @@ vector<string> ShuntingYard::splitString(string str) {
     string s;
     //going over the whole string
     while (i != str.length()) {
-        //if is a number
+        //if is not an operator or brackets
         if(!isOperator(str[i]) && str[i]!= '(' && str[i]!= ')' && str[i]!= ' ') {
             s += str[i];
         } else {
@@ -157,7 +158,6 @@ vector<string> ShuntingYard::splitString(string str) {
             }
             s = "";
         }
-
         i++;
     }
     chopped.push_back(s);
@@ -170,7 +170,7 @@ vector<string> ShuntingYard::splitString(string str) {
 vector<string> ShuntingYard::swapVars(vector<string> chunks) {
     for (int i = 0; i < chunks.size(); ++i) {
         //is a var in the symbol table map
-        if(data->getsymbleTablehMap().find(chunks[i]) != data->getsymbleTablehMap().end()){
+        if(data->isVar(chunks[i])){
             chunks[i] = to_string(data->getValueOfVar(chunks[i]));
         }
     }
