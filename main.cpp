@@ -2,9 +2,7 @@
 #include <fstream>
 #include <vector>
 #include "Reader.h"
-#include "ShuntingYard.h"
-#include "Socket.h"
-#include "WhileCommand.h"
+#include "GetCommandMap.h"
 #include <regex>
 
 using namespace std;
@@ -12,15 +10,15 @@ using namespace std;
 ifstream file;
 
 int main() {
-
+    map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
+    Data* data = new Data();
     file.open("script.txt", ifstream::in | ifstream::app);
     if (!file) {
         throw "Failed opening file";
     }
-
-    Reader* reader = new Reader();
+    Reader* reader = new Reader(data, commandMap);
     string buffer;
-    vector<string> data;
+    vector<string> lineData;
     string conditionCommand;
     bool bracketInNextLine = true;
     int counter = 0;
@@ -47,14 +45,14 @@ int main() {
                 reader->conditionParser(conditionCommand);
             }
         } else {
-            data = reader->lexer(buffer);
-            reader->parser(data);
+            lineData = reader->lexer(buffer);
+            reader->parser(lineData);
         }
 
 
     }
 
-    while (true) {}
+    //while (true) {}
     return 0;
 
 }

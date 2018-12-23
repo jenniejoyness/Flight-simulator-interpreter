@@ -21,18 +21,17 @@ class Reader {
     Data* data;
 
 public:
-    Reader();
+    Reader(Data* data, map<string,ExpressionCommand*> map);
     vector<string> split(string str, string del);
     vector<string> lexer(string line);
     void parser(vector<string>);
-    vector<string> openDataServerRegex(string line);
     string addSpaces(string str);
     bool isOperator(char s);
     void addParameter(int j, int i, vector<string>&params, vector<string> line);
     vector<string> findParameters(vector<string> line);
     void conditionParser(string str);
-
 };
+
 
 
 #endif //MILLSTONE_COMMANDREADER_H

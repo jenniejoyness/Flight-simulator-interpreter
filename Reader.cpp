@@ -1,23 +1,13 @@
-
 #include "Reader.h"
 #include "ExpressionCommand.h"
 #include "ConditionCommand.h"
-#include "WhileCommand.h"
-#include "EqualCommand.h"
-#include "VarCommand.h"
+#include "GetCommandMap.h"
 #include <regex>
 #include <list>
 
-Reader::Reader() {
-    this->data = new Data();
-
-    commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
-                                                        new ExpressionCommand(new OpenDataServerCommand())));
-
-    commandMap.insert(pair<string, ExpressionCommand *>("=",
-                                                        new ExpressionCommand(new EqualCommand())));
-    commandMap.insert(pair<string, ExpressionCommand *>("=",
-                                                        new ExpressionCommand(new VarCommand())));
+Reader::Reader(Data* data, map<string,ExpressionCommand*> map) {
+    this->data = data;
+    this->commandMap = map;
 }
 
 vector<string> Reader::lexer(string line) {
@@ -31,22 +21,23 @@ vector<string> Reader::lexer(string line) {
  */
 void Reader::parser(vector<string> lineData) {
     ExpressionCommand *expression;
-    //if in the first place found a symbol - meaning is an equal command
-    if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
+    //if in the first place found a symbol
+    /*if (data->getsymbleTablehMap().find(lineData[0]) != data->getsymbleTablehMap().end()) {
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
         lineData.erase(lineData.begin() + 1);
-    } else {
-        expression = commandMap.find(lineData[0])->second;
-        //erase the command
-        lineData.erase(lineData.begin());
-    }
+    } *///else {
+    expression = commandMap.find(lineData[0])->second;
+    //erase the command
+    lineData.erase(lineData.begin());
+    // }
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command
     expression->Calculate();
 }
+
 
 string Reader::addSpaces(string str) {
     bool inBrackets = false;
@@ -96,7 +87,7 @@ string Reader::addSpaces(string str) {
 
 bool Reader::isOperator(char s) {
     if ((s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
-    || s == '>' || s == '<' || s == '>=' || s == '<=' || s == '==' || s == '!=') {
+        || s == '>' || s == '<' || s == '>=' || s == '<=' || s == '==' || s == '!=') {
         return true;
     }
     return false;
@@ -177,7 +168,9 @@ vector<string> Reader::split(string line, string delimiter) {
     vector<string> data;
     size_t pos = 0;
     while ((pos = line.find(delimiter)) != string::npos) {
-        data.push_back(line.substr(0, pos));
+        if (line.substr(0, pos) != "") {
+            data.push_back(line.substr(0, pos));
+        }
         line.erase(0, pos + delimiter.length());
     }
     data.push_back(line.substr(0, pos));
@@ -202,11 +195,13 @@ void Reader::conditionParser(string str) {
     chopped.erase(chopped.begin());
 
     //sending each command line to lexer and adding to list of commands for the whilecommand
-    for (int i = 0; i < chopped.size(); ++i) {
+    for (int i = 0; i < chopped.size() - 1; ++i) {
         //if the line does not contains condition send to the lexer and add to params
-        if ((strstr(chopped[i].c_str(), "while") == NULL || strstr(chopped[i].c_str(), "if") == NULL)
+        if ((strstr(chopped[i].c_str(), "while") == NULL && strstr(chopped[i].c_str(), "if") == NULL)
             && !inAnotherCondtion) {
-            params.push_back(lexer(chopped[i]));
+            if (lexer(chopped[i])[0] != "}") {
+                params.push_back(lexer(chopped[i]));
+            }
         } else {
             //in another condition
             inAnotherCondtion = true;
@@ -224,7 +219,7 @@ void Reader::conditionParser(string str) {
             } else if (strstr(chopped[i].c_str(), "}") != NULL) {
                 counter--;
             }
-            s += chopped[i];
+            s += chopped[i] + "#";
             //got to the end of the condition
             if (counter == 0) {
                 vector<string> anotherConditionParams;
@@ -236,12 +231,10 @@ void Reader::conditionParser(string str) {
         }
     }
     //find expression command, set params for the new expression command
-    ExpressionCommand *expression = commandMap.find(params[0][0])->second;
+    ExpressionCommand *expression = commandMap.find(condition[0])->second;
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(condition, data);
-    dynamic_cast<ConditionCommand*>(expression)->setCommandsParam(params);
+    dynamic_cast<ConditionCommand*>(expression->getCommand())->setCommandsParam(params, commandMap);
     //will calculate parameters and execute the command
     expression->Calculate();
 }
-
-

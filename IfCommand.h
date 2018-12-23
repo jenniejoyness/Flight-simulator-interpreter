@@ -5,10 +5,10 @@
 #ifndef MILLSTONE_IFCOMMAND_H
 #define MILLSTONE_IFCOMMAND_H
 
-
 #include "ConditionCommand.h"
+#include "Reader.h"
 
-class IfCommand : ConditionCommand{
+class IfCommand : public ConditionCommand{
 public:
     void doCommand();
     void setParameters(vector<string> params, Data *data);
