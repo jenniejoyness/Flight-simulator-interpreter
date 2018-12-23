@@ -7,7 +7,7 @@
 #include "ClientSocket.h"
 
 void ConnectCommand::setParameters(vector<string> params, Data *data) {
-    ShuntingYard shuntingYard;
+    ShuntingYard shuntingYard(data);
     this->ipAddress = params[0];
     this->port = (int)shuntingYard.infixToPostfix(params[1])->Calculate();
     this->data = data;

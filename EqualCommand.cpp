@@ -26,7 +26,7 @@ void EqualCommand::doCommand() {
  * set parameters
  */
 void EqualCommand::setParameters(vector<string> params, Data *data) {
-    ShuntingYard shuntingYard;
+    ShuntingYard shuntingYard(data);
     this->data = data;
     this->varTarget = params[0];
     this->value = shuntingYard.infixToPostfix(params[1])->Calculate();

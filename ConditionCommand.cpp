@@ -46,7 +46,7 @@ bool ConditionCommand::stuff(vector<string> condition) {
         right += condition[i];
         i++;
     }
-    ShuntingYard shuntingYard;
+    ShuntingYard shuntingYard(data);
     Expression* leftExp = shuntingYard.infixToPostfix(left);
     Expression* rightExp = shuntingYard.infixToPostfix(right);
     ConditionOperators conditionOperators;

@@ -11,9 +11,8 @@ using namespace std;
 class ShuntingYard {
     Data* data;
 public:
-    //TODO - CHANGE FROM NEW TO THE GIVEN DATA IN CONSTRUCTOR
-    ShuntingYard(){
-        this->data = new Data();
+    ShuntingYard(Data* data){
+        this->data = data;
     }
     vector<string> splitString(string str);
     int getPriority(string C);

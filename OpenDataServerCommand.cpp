@@ -17,7 +17,7 @@
 
 
 void OpenDataServerCommand::setParameters(vector<string> params, Data* data) {
-    ShuntingYard shuntingYard;
+    ShuntingYard shuntingYard(data);
     this->port = (int)shuntingYard.infixToPostfix(params[0])->Calculate();
     this->HZ = (int)shuntingYard.infixToPostfix(params[1])->Calculate();
     this->data = data;

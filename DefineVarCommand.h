@@ -8,15 +8,18 @@
 
 #include "Command.h"
 
-class DefineVarCommand : public Command {
-private:
-    string varName;
+class DefineVarCommand: public Command {
+    Data* data;
+    string var;
     bool bind;
-    string path;
+    string value;
 public:
+    void setParameters(vector<string> params, Data *data);
     void doCommand();
-    void setParameters(vector<string> params);
-};
+    void binding();
+    void changingVarValue();
+    //double findValue();
 
+};
 
 #endif //MILLSTONE_DEFINEVARCOMMAND_H
