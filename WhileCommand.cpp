@@ -10,7 +10,7 @@
 
 void WhileCommand::doCommand() {
     Reader *reader = new Reader(data, commandMap);
-    while (true/*stuff(condition)*/) {
+    while (stuff(condition)) {
         commandExecute(commands, reader);
     }
 }

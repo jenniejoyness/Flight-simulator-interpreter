@@ -7,7 +7,7 @@
 
 void IfCommand::doCommand() {
     Reader *reader = new Reader(data, commandMap);
-    if (true/*stuff(condition)*/) {
+    if (stuff(condition)) {
         commandExecute(commands, reader);
     }
 }

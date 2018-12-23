@@ -86,8 +86,8 @@ string Reader::addSpaces(string str) {
 }
 
 bool Reader::isOperator(char s) {
-    if ((s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
-        || s == '>' || s == '<' || s == '>=' || s == '<=' || s == '==' || s == '!=') {
+    if (s == '>=' || s == '<=' || s == '==' || s == '!=' || (s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
+        || s == '>' || s == '<' || s == '{' || s == '}') {
         return true;
     }
     return false;
@@ -192,6 +192,9 @@ void Reader::conditionParser(string str) {
     vector<string> chopped = split(str, "#");
     //add spaces to the condition string and split
     vector<string> condition = split(addSpaces(chopped[0]), " ");
+    if (condition.back() == "") {
+        condition.erase(condition.end());
+    }
     chopped.erase(chopped.begin());
 
     //sending each command line to lexer and adding to list of commands for the whilecommand

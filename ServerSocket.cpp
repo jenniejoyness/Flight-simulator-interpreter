@@ -22,9 +22,10 @@ struct MyParams {
  * TODO - DO WE NEED A LOCK??
  */
 void *ServerSocket::openSocket(void *arg) {
-    vector<string> vars;
+
     struct MyParams *params = (struct MyParams *) arg;
     Data *data = params->data;
+    vector<string> paths = data->getPathList();
 
     int sockfd, newsockfd, portno, clilen;
     char buffer[1024];
@@ -69,11 +70,9 @@ void *ServerSocket::openSocket(void *arg) {
         exit(1);
     }
 
-    //If connection is established then start communicating */
-    bzero(buffer, 1024);
-
-    //sleep for this->Hz
     while (true) {
+        //If connection is established then start communicating */
+        bzero(buffer, 1024);
         n = read(newsockfd, buffer, 1024);
         string b = buffer;
         if (n < 0) {
@@ -91,8 +90,8 @@ void *ServerSocket::openSocket(void *arg) {
         line.push_back(b.substr(0, pos));
 
         //update the map with new values read from the simulator
-        for (int i = 0; i < line.size(); ++i) {
-            data->updateSymbleTable(vars[i], stod(line[i]));
+        for (int i = 0; i < paths.size(); ++i) {
+            data->updateSymbleTable(paths[i], stod(line[i]));
         }
     }
 }

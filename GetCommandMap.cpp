@@ -8,6 +8,8 @@
 #include "IfCommand.h"
 #include "PrintCommand.h"
 #include "DefineVarCommand.h"
+#include "EqualCommand.h"
+#include "ConnectCommand.h"
 
 map<string, ExpressionCommand*> GetCommandMap::getMap() {
     map<string, ExpressionCommand*> commandMap;
@@ -21,6 +23,10 @@ map<string, ExpressionCommand*> GetCommandMap::getMap() {
                                                         new ExpressionCommand(new PrintCommand())));
     commandMap.insert(pair<string, ExpressionCommand *>("var",
                                                         new ExpressionCommand(new DefineVarCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("=",
+                                                        new ExpressionCommand(new EqualCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("connect",
+                                                        new ExpressionCommand(new ConnectCommand())));
 
     return commandMap;
 }

@@ -41,6 +41,7 @@ void EqualCommand::sendMessage(string str) {
     char* s = const_cast<char*>(str.c_str());
     /* Send message to the server */
     n = write(sockfd, s, strlen(s));
+    cout << "\n";
     if (n < 0) {
         perror("ERROR writing to socket");
         exit(1);

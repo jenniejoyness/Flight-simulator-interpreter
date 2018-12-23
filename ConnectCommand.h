@@ -8,7 +8,7 @@
 
 #include "Command.h"
 //TODO - CHECK IF CLASS WORKS!!!!!!!
-class ConnectCommand : Command {
+class ConnectCommand : public Command {
 private:
     string ipAddress;
     int port;

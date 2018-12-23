@@ -11,7 +11,7 @@ void ConditionCommand::setCommandsParam(vector<vector<string>> commands, map<str
 }
 
 bool ConditionCommand::isConditionOperator(char c) {
-    if (c == '<' || c == '<' || c == '<=' || c == '>=' || c == '=='|| c == '=!') {
+    if (c == '<' || c == '>' || c == '=' || c == '=' || c == '!') {
         return true;
     }
     return false;
@@ -20,8 +20,8 @@ bool ConditionCommand::isConditionOperator(char c) {
 bool ConditionCommand::stuff(vector<string> condition) {
     //erase "while"
     condition.erase(condition.begin());
-    if (condition.back() == "}") {
-        condition.erase(condition.begin()+condition.size()-1);
+    if (condition.back() == "{") {
+        condition.erase(condition.end());
     }
 
     //in shunting yard
@@ -37,12 +37,16 @@ bool ConditionCommand::stuff(vector<string> condition) {
     int i = 0;
     string left;
     string right;
+    string op;
     while (!isConditionOperator(condition[i][0]) && i != condition.size()) {
         left += condition[i];
         i++;
     }
-    string op = condition[i];
-    while (!isConditionOperator(condition[i + 1][0]) && i != condition.size()) {
+    while (isConditionOperator(condition[i][0])) {
+        op += condition[i];
+        i++;
+    }
+    while (!isConditionOperator(condition[i][0]) && i != condition.size()) {
         right += condition[i];
         i++;
     }
@@ -50,20 +54,18 @@ bool ConditionCommand::stuff(vector<string> condition) {
     Expression* leftExp = shuntingYard.infixToPostfix(left);
     Expression* rightExp = shuntingYard.infixToPostfix(right);
     ConditionOperators conditionOperators;
-    switch (op[0]) {
-        case '<':
-            return conditionOperators.smaller(leftExp, rightExp);
-        case '<=':
-            return conditionOperators.smallerEqual(leftExp, rightExp);
-        case '>':
-            return conditionOperators.bigger(leftExp, rightExp);
-        case '>=':
-            return conditionOperators.biggerEqual(leftExp, rightExp);
-        case '==':
-            return conditionOperators.equal(leftExp, rightExp);
-        case '!=':
-            return conditionOperators.notEqual(leftExp, rightExp);
-    }
+    if (op == "<")
+        return conditionOperators.smaller(leftExp, rightExp);
+    if (op == "<=")
+        return conditionOperators.smallerEqual(leftExp, rightExp);
+    if (op == ">")
+        return conditionOperators.bigger(leftExp, rightExp);
+    if(op == ">=")
+        return conditionOperators.biggerEqual(leftExp, rightExp);
+    if (op == "==")
+        return conditionOperators.equal(leftExp, rightExp);
+    if (op == "!=")
+        return conditionOperators.notEqual(leftExp, rightExp);
 }
 
 void ConditionCommand::commandExecute(vector<vector<string>> commands, Reader* reader) {

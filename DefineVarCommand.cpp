@@ -41,7 +41,7 @@ void DefineVarCommand::binding() {
     if(value.find("\"") == 0){
         data->addVarToPath(var,value);
         //the value is not a var in symbol table
-    } else if (!data->isGearVar(value)) {
+    } else if (!data->isVar(value)) {
         //find the path of the var in- var value
         data->addVarToPath(var,data->getPathOfVar(value));
     } else {
@@ -58,7 +58,7 @@ void DefineVarCommand::binding() {
  */
 void DefineVarCommand::changingVarValue() {
     //if found the var in symbol table - send to equal command
-    if(data->isGearVar(var)){
+    if(data->isVar(var)){
         //calling equal command
         Command* equalCommand = new EqualCommand();
         vector<string> params;
