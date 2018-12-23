@@ -17,7 +17,7 @@ void DefineVarCommand::setParameters(vector<string> params, Data *data) {
         //this->value = to_string(shuntingYard.infixToPostfix(params[3])->Calculate());
         this->value = params[3];
         //does not have bind
-    } else{
+    } else {
         this->bind = false;
         this->value = to_string(shuntingYard.infixToPostfix(params[2])->Calculate());
     }
@@ -26,9 +26,9 @@ void DefineVarCommand::setParameters(vector<string> params, Data *data) {
 
 }
 void DefineVarCommand::doCommand() {
-    if(bind){
+    if(bind) {
         binding();
-    }else{
+    } else {
         changingVarValue();
     }
 }
@@ -37,19 +37,19 @@ void DefineVarCommand::doCommand() {
  * add path to var
  */
 void DefineVarCommand::binding() {
+    //todo if path not in valuepath?
     //found brackets, need to add path
-    if(value.find("\"") == 0){
+    if(value.find("\"") == 0) {
         data->addVarToPath(var,value);
-        //the value is not a var in symbol table
-    } else if (!data->isVar(value)) {
-        //find the path of the var in- var value
-        data->addVarToPath(var,data->getPathOfVar(value));
+        // add to symbol table
+        data->addVarToSymbleTable(var,data->getValueByPath(value));
     } else {
         //find path to value var
         string path = data->getPathOfVar(value);
         data->addVarToPath(var,path);
+        // add to symbol table
+        data->addVarToSymbleTable(var,data->getValueByPath(path));
     }
-
 }
 
 /*
@@ -72,22 +72,3 @@ void DefineVarCommand::changingVarValue() {
     }
 
 }
-
-/*
-double VarCommand::findValue() {
-    ShuntingYard shuntingYard;
-    vector<string> chunks = shuntingYard.splitString(value);
-    for (int i = 0; i < chunks.size() ; ++i) {
-        if(data->getsymbleTablehMap().find(value) != data->getsymbleTablehMap().end()){
-
-        }
-    }
-    //double this->value = shuntingYard.infixToPostfix(params[1])->Calculate();
-    //if the value is a var in the map return the value
-    if(data->getsymbleTablehMap().find(value) != data->getsymbleTablehMap().end()){
-        return data->getValueOfVar(value);
-    } else{
-        return stoi(value);
-    }
-
-}*/

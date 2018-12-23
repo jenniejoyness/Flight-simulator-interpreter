@@ -91,7 +91,7 @@ void *ServerSocket::openSocket(void *arg) {
 
         //update the map with new values read from the simulator
         for (int i = 0; i < paths.size(); ++i) {
-            data->updateSymbleTable(paths[i], stod(line[i]));
+            data->updateValuePathMap(paths[i], stod(line[i]));
         }
     }
 }

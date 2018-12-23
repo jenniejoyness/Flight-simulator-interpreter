@@ -5,16 +5,16 @@
 #ifndef MILLSTONE_DATA_H
 #define MILLSTONE_DATA_H
 
+
 #include <iostream>
 #include <map>
-#include <unordered_map>
 #include <vector>
 using namespace std;
 
 class Data {
 private:
     map<string,string> varPath;
-    unordered_map<string,double > valuePath;
+    map<string,double > valuePath;
     map<string, double > symbleTable;
     int clientId;
     vector<string> paths;
@@ -34,6 +34,8 @@ public:
     string getPathOfVar(string var);
     bool isVar(string str);
     vector<string> getPathList();
+    double getValueByPath(string path);
+    void updateValuePathMap(string path, double value);
 
 };
 

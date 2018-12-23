@@ -24,16 +24,6 @@ bool ConditionCommand::stuff(vector<string> condition) {
         condition.erase(condition.end());
     }
 
-    //in shunting yard
-   /* //check if there is a var in the string by searching in the map,
-    //if it does - replace it in his value
-    for (int j = 0; j < condition.size() ; ++j) {
-        //if it found
-        if (data->getsymbleTablehMap().find(condition[j]) != data->getsymbleTablehMap().end()) {
-            condition[j] = to_string(data->getValueOfVar(condition[j]));
-        }
-    }*/
-
     int i = 0;
     string left;
     string right;
