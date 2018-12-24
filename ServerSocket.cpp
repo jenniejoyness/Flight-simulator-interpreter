@@ -22,13 +22,12 @@ struct MyParams {
  * TODO - DO WE NEED A LOCK??
  */
 void *ServerSocket::openSocket(void *arg) {
-cout<<"skugkfug";
     struct MyParams *params = (struct MyParams *) arg;
     Data *data = params->data;
     vector<string> paths = data->getPathList();
 
     int sockfd, newsockfd, portno, clilen;
-    char buffer[1024];
+    char buffer[256];
     struct sockaddr_in serv_addr, cli_addr;
     int n;
 
@@ -72,8 +71,8 @@ cout<<"skugkfug";
 
     while (true) {
         //If connection is established then start communicating */
-        bzero(buffer, 1024);
-        n = read(newsockfd, buffer, 1024);
+        bzero(buffer, 256);
+        n = read(newsockfd, buffer, 255);
         string b = buffer;
         if (n < 0) {
             perror("ERROR reading from socket");
@@ -83,11 +82,11 @@ cout<<"skugkfug";
         size_t pos = 0;
         string delimiter = ",";
         //splitting by ","
-        while ((pos = b.find(delimiter)) != string::npos) {
+     /*   while ((pos = b.find(delimiter)) != string::npos) {
             line.push_back(b.substr(0, pos));
             b.erase(0, pos + delimiter.length());
         }
-        line.push_back(b.substr(0, pos));
+        line.push_back(b.substr(0, pos));*/
 
         //update the map with new values read from the simulator
         for (int i = 0; i < paths.size(); ++i) {

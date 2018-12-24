@@ -182,7 +182,15 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
 string ShuntingYard::checkMinus(string str) {
     int flag = 0;
     string s;
+
     for (int i = 0; i < str.length() - 1; i++) {
+        if (i == 0 && str[i] == '-') {
+            s += "(";
+            s += "0";
+            s += "-";
+            flag = 1;
+            continue;
+        }
         if (flag && isOperator(str[i])) {
             s+= ")";
             flag = 0;

@@ -99,10 +99,10 @@ bool Reader::isOperator(char s) {
  */
 void Reader::addParameter(int j, int i, vector<string> &params, vector<string> line) {
     string s = "";
-    if (line[j] == "-") {
+  /*  if (line[j] == "-") {
         s += "0";
     }
-
+*/
     for (j; j <= i; j++) {
         s += line[j];
     }

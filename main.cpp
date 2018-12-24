@@ -49,10 +49,9 @@ int main() {
             reader->parser(lineData);
         }
 
-
     }
 
-    while (true) {}
+    while (true){}
     return 0;
 
 }
