@@ -17,7 +17,8 @@ void EqualCommand::doCommand() {
     data->updateSymbleTable(varTarget, value);
     //getting the path of the var
     string path = data->getPath(varTarget);
-    string message = "set " + path + " " + to_string(value);
+    path = path.substr(1, path.size()-2);
+    string message = "set " + path + " " + to_string(value) + "\r\n";
     //sending message to simulator
     sendMessage(message);
 }
@@ -41,7 +42,6 @@ void EqualCommand::sendMessage(string str) {
     char* s = const_cast<char*>(str.c_str());
     /* Send message to the server */
     n = write(sockfd, s, strlen(s));
-    cout << "\n";
     if (n < 0) {
         perror("ERROR writing to socket");
         exit(1);

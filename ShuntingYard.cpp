@@ -28,7 +28,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
     stack<string> stack;
     stack.push("N");
     //splitting the string into chunks and swapping the vars for numbers
-    vector<string> s = swapVars(splitString(str));
+    vector<string> s = swapVars(splitString(checkMinus(str)));
 
     int l = s.size();
     vector<string>  output;
@@ -175,4 +175,49 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
         }
     }
     return chunks;
+}
+
+string ShuntingYard::checkMinus(string str) {
+    int flag = 0;
+    string s;
+    for (int i = 0; i < str.length() - 1; i++) {
+        if (flag && isOperator(str[i])) {
+            s+= ")";
+            flag = 0;
+        }
+        switch (str[i]) {
+            case 42:
+                s += "*";
+                break;
+            case 43:
+                s += "+";
+                break;
+            case 45:
+                s += "-";
+                break;
+            case 47:
+                s += "/";
+                break;
+            case 40:
+                s += "(";
+                break;
+            case 41:
+                s += ")";
+                break;
+            default:
+                s += str[i];
+        }
+        if ((isOperator(str[i]) || str[i] == '(') && str[i + 1] == '-') {
+            s += "(";
+            s += "0";
+            s += "-";
+            flag = 1;
+            i++;
+        }
+    }
+    s += str[str.length() -1];
+    if (flag) {
+        s+= ")";
+    }
+    return s;
 }

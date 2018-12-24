@@ -3,16 +3,16 @@
 #include <vector>
 #include "Reader.h"
 #include "GetCommandMap.h"
+#include "ShuntingYard.h"
 #include <regex>
 
 using namespace std;
 
 ifstream file;
-
 int main() {
     map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
-    Data* data = new Data();
-    file.open("script.txt", ifstream::in | ifstream::app);
+    Data* data = new Data;
+/*    file.open("script.txt", ifstream::in | ifstream::app);
     if (!file) {
         throw "Failed opening file";
     }
@@ -50,7 +50,10 @@ int main() {
         }
 
 
-    }
+    }*/
+
+ShuntingYard shuntingYard(data);
+double e = shuntingYard.infixToPostfix("3*(-4354)")->Calculate();
 
     while (true) {}
     return 0;

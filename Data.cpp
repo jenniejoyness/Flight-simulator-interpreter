@@ -2,28 +2,28 @@
 #include "Data.h"
 
 Data::Data(){
-    paths.push_back("\"/instrumentation/airspeed-indicator/indicated-speed-kt\"");
-    paths.push_back("\"/instrumentation/altimeter/indicated-altitude-ft\"");
-    paths.push_back("\"/instrumentation/altimeter/pressure-alt-ft\"");
-    paths.push_back("\"/instrumentation/attitude-indicator/indicated-pitch-deg\"");
-    paths.push_back("\"/instrumentation/attitude-indicator/indicated-roll-deg\"");
-    paths.push_back("\"/instrumentation/attitude-indicator/internal-pitch-deg\"");
-    paths.push_back("\"/instrumentation/attitude-indicator/internal-roll-deg\"");
-    paths.push_back("\"/instrumentation/encoder/indicated-altitude-ft\"");
-    paths.push_back("\"/instrumentation/encoder/pressure-alt-ft\"");
-    paths.push_back("\"/instrumentation/gps/indicated-altitude-ft\"");
-    paths.push_back("\"/instrumentation/gps/indicated-ground-speed-kt\"");
-    paths.push_back("\"/instrumentation/gps/indicated-vertical-speed</node>\"");
-    paths.push_back("\"/instrumentation/heading-indicator/indicated-heading-deg\"");
-    paths.push_back("\"/instrumentation/magnetic-compass/indicated-heading-deg\"");
-    paths.push_back("\"/instrumentation/slip-skid-ball/indicated-slip-skid\"");
-    paths.push_back("\"/instrumentation/turn-indicator/indicated-turn-rate\"");
-    paths.push_back("\"/instrumentation/vertical-speed-indicator/indicated-speed-fpm\"");
-    paths.push_back("\"/controls/flight/aileron\"");
-    paths.push_back("\"/controls/flight/rudder\"");
-    paths.push_back("\"/controls/flight/flaps\"");
-    paths.push_back("\"/controls/engines/engine/throttle\"");
-    paths.push_back("\"/engines/engine/rpm\"");
+    paths.emplace_back("\"/instrumentation/airspeed-indicator/indicated-speed-kt\"");
+    paths.emplace_back("\"/instrumentation/altimeter/indicated-altitude-ft\"");
+    paths.emplace_back("\"/instrumentation/altimeter/pressure-alt-ft\"");
+    paths.emplace_back("\"/instrumentation/attitude-indicator/indicated-pitch-deg\"");
+    paths.emplace_back("\"/instrumentation/attitude-indicator/indicated-roll-deg\"");
+    paths.emplace_back("\"/instrumentation/attitude-indicator/internal-pitch-deg\"");
+    paths.emplace_back("\"/instrumentation/attitude-indicator/internal-roll-deg\"");
+    paths.emplace_back("\"/instrumentation/encoder/indicated-altitude-ft\"");
+    paths.emplace_back("\"/instrumentation/encoder/pressure-alt-ft\"");
+    paths.emplace_back("\"/instrumentation/gps/indicated-altitude-ft\"");
+    paths.emplace_back("\"/instrumentation/gps/indicated-ground-speed-kt\"");
+    paths.emplace_back("\"/instrumentation/gps/indicated-vertical-speed</node>\"");
+    paths.emplace_back("\"/instrumentation/heading-indicator/indicated-heading-deg\"");
+    paths.emplace_back("\"/instrumentation/magnetic-compass/indicated-heading-deg\"");
+    paths.emplace_back("\"/instrumentation/slip-skid-ball/indicated-slip-skid\"");
+    paths.emplace_back("\"/instrumentation/turn-indicator/indicated-turn-rate\"");
+    paths.emplace_back("\"/instrumentation/vertical-speed-indicator/indicated-speed-fpm\"");
+    paths.emplace_back("\"/controls/flight/aileron\"");
+    paths.emplace_back("\"/controls/flight/rudder\"");
+    paths.emplace_back("\"/controls/flight/flaps\"");
+    paths.emplace_back("\"/controls/engines/engine/throttle\"");
+    paths.emplace_back("\"/engines/engine/rpm\"");
     setPaths();
 }
 
@@ -34,7 +34,6 @@ void Data::setPaths() {
     for (int i = 0; i < paths.size(); ++i) {
         valuePath.insert(pair<string,double>(paths[i],0));
     }
-
 }
 
 /*

@@ -86,9 +86,10 @@ string Reader::addSpaces(string str) {
 }
 
 bool Reader::isOperator(char s) {
-    if (s == '>=' || s == '<=' || s == '==' || s == '!=' || (s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
+    if ((s == '+') || (s == '-') || (s == '/') || (s == '*') || (s == '(') || (s == ')') || (s == ',') || (s == '=')
         || s == '>' || s == '<' || s == '{' || s == '}') {
         return true;
+
     }
     return false;
 }
