@@ -160,7 +160,9 @@ vector<string> ShuntingYard::splitString(string str) {
         }
         i++;
     }
-    chopped.push_back(s);
+    if (s != "") {
+        chopped.push_back(s);
+    }
     return chopped;
 }
 

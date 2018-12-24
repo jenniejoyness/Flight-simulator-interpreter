@@ -22,7 +22,7 @@ struct MyParams {
  * TODO - DO WE NEED A LOCK??
  */
 void *ServerSocket::openSocket(void *arg) {
-
+cout<<"skugkfug";
     struct MyParams *params = (struct MyParams *) arg;
     Data *data = params->data;
     vector<string> paths = data->getPathList();
