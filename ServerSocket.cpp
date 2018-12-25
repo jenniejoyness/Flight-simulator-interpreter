@@ -7,6 +7,7 @@
 #include "ServerSocket.h"
 #include <pthread.h>
 #include <vector>
+#include <list>
 
 struct MyParams {
     int port;
@@ -69,10 +70,12 @@ void *ServerSocket::openSocket(void *arg) {
         exit(1);
     }
 
+    vector<string> insertToMap;
+    vector<string> temp;
     while (true) {
-        //If connection is established then start communicating */
+        //If connection is established then start communicating
         bzero(buffer, 256);
-        n = read(newsockfd, buffer, 255);
+        n = read(newsockfd, buffer, 256);
         string b = buffer;
         if (n < 0) {
             perror("ERROR reading from socket");
@@ -82,15 +85,37 @@ void *ServerSocket::openSocket(void *arg) {
         size_t pos = 0;
         string delimiter = ",";
         //splitting by ","
-     /*   while ((pos = b.find(delimiter)) != string::npos) {
+        while ((pos = b.find(delimiter)) != string::npos) {
             line.push_back(b.substr(0, pos));
             b.erase(0, pos + delimiter.length());
         }
-        line.push_back(b.substr(0, pos));*/
+        line.push_back(b.substr(0, pos));
+
+        for (int j = 0; j < line.size(); ++j) {
+            int x = line[j].find("\n");
+            if (x != -1) {
+                insertToMap.push_back(line[j].substr(0, x - 1));
+                if (x != line[j].size()) {
+                    line[j] = line[j].substr(x + 1, line.size());
+                }
+            }
+            if (insertToMap.size() < 23) {
+                insertToMap.push_back(line[j]);
+            } else {
+                temp.push_back(line[j]);
+            }
+        }
 
         //update the map with new values read from the simulator
         for (int i = 0; i < paths.size(); ++i) {
-            data->updateValuePathMap(paths[i], stod(line[i]));
+            data->updateValuePathMap(paths[i], stod(insertToMap[i]));
         }
+        insertToMap.clear();
+        for (auto &t: temp) {
+            insertToMap.push_back(t);
+        }
+        temp.clear();
     }
 }
+
+
