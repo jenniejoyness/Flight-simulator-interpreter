@@ -44,10 +44,21 @@ void Data::setClientId(int id) {
 }
 
 /*
+ * set the socket id of the serevr
+ */
+void Data::setServerId(int id) {
+    this->serverId = id;
+}
+
+/*
  * return the socket id of the client
  */
 int Data::getClientId() const {
     return clientId;
+}
+
+int Data::getServerId() const {
+    return serverId;
 }
 
 /*

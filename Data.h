@@ -17,6 +17,7 @@ private:
     map<string,double > valuePath;
     map<string, double > symbleTable;
     int clientId;
+    int serverId;
     vector<string> paths;
 
 public:
@@ -25,7 +26,9 @@ public:
     Data();
     void setPaths();
     void setClientId(int id);
+    void setServerId(int id);
     int getClientId() const;
+    int getServerId() const;
     void addVarToPath(string var, string path);
     void addVarToSymbleTable(string var, double value);
     void updateSymbleTable(string var, double value);

@@ -16,8 +16,6 @@ public:
     void setParameters(vector<string> params, Data* data);
 
     struct MyParams {
-        int port;
-        int hz;
         Data* data;
     };
 
