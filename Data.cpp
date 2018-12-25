@@ -13,16 +13,17 @@ Data::Data(){
     paths.emplace_back("\"/instrumentation/encoder/pressure-alt-ft\"");
     paths.emplace_back("\"/instrumentation/gps/indicated-altitude-ft\"");
     paths.emplace_back("\"/instrumentation/gps/indicated-ground-speed-kt\"");
-    paths.emplace_back("\"/instrumentation/gps/indicated-vertical-speed</node>\"");
+    paths.emplace_back("\"/instrumentation/gps/indicated-vertical-speed\"");
     paths.emplace_back("\"/instrumentation/heading-indicator/indicated-heading-deg\"");
     paths.emplace_back("\"/instrumentation/magnetic-compass/indicated-heading-deg\"");
     paths.emplace_back("\"/instrumentation/slip-skid-ball/indicated-slip-skid\"");
     paths.emplace_back("\"/instrumentation/turn-indicator/indicated-turn-rate\"");
     paths.emplace_back("\"/instrumentation/vertical-speed-indicator/indicated-speed-fpm\"");
     paths.emplace_back("\"/controls/flight/aileron\"");
+    paths.emplace_back("\"/controls/flight/elevator\"");
     paths.emplace_back("\"/controls/flight/rudder\"");
     paths.emplace_back("\"/controls/flight/flaps\"");
-    paths.emplace_back("\"/controls/engines/engine/throttle\"");
+    paths.emplace_back("\"/controls/engines/current-engine/throttle\"");
     paths.emplace_back("\"/engines/engine/rpm\"");
     setPaths();
 }
