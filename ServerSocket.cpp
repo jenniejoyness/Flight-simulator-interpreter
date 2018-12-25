@@ -28,50 +28,41 @@ void *ServerSocket::openSocket(void *arg) {
     char buffer[256];
     int n;
 
-    vector<string> insertToMap;
-    vector<string> temp;
+
+    string buff;
+    string leftOvers;
+
+    /* If connection is established then start communicating */
     while (true) {
-        //If connection is established then start communicating
         bzero(buffer, 256);
-        n = read(data->getServerId(), buffer, 256);
-        string b = buffer;
+        n = read(data->getServerId(), buffer, 255);
         if (n < 0) {
             perror("ERROR reading from socket");
             exit(1);
         }
-        vector<string> line;
+        // split each line it get from the file to list of separate strings
+        vector<string> info;
         size_t pos = 0;
         string delimiter = ",";
-        //splitting by ","
-        while ((pos = b.find(delimiter)) != string::npos) {
-            line.push_back(b.substr(0, pos));
-            b.erase(0, pos + delimiter.length());
-        }
-        line.push_back(b.substr(0, pos));
+        string delimiter2 = "\n";
+        buff += buffer;
+        pos = buff.find(delimiter2);
+        leftOvers += buff.substr((0, pos));
 
-        for (int j = 0; j < line.size(); ++j) {
-            int x = line[j].find("\n");
-            if (x != -1) {
-                insertToMap.push_back(line[j].substr(0, x - 1));
-                if (x != line[j].size()) {
-                    line[j] = line[j].substr(x + 1, line.size());
-                }
-            }
-            if (insertToMap.size() < 23) {
-                insertToMap.push_back(line[j]);
-            } else {
-                temp.push_back(line[j]);
-            }
+        // to remove the \n from the beginning of the string
+        leftOvers = leftOvers.substr(1);
+        buff.erase(pos + delimiter2.length() - 1);
+        pos = 0;
+        while ((pos = buff.find(delimiter)) != string::npos) {
+            info.push_back(buff.substr(0, pos));
+            buff.erase(0, pos + delimiter.length());
         }
-
-        //update the map with new values read from the simulator
+        info.push_back(buff.substr(0, pos));
+        buff = "";
         for (int i = 0; i < paths.size(); ++i) {
-            data->updateValuePathMap(paths[i], stod(insertToMap[i]));
+            data->updateValuePathMap(paths[i], stod(info[i]));
         }
-        insertToMap.clear();
-        for (auto &t: temp) {
-            insertToMap.push_back(t);
-        }
-        temp.clear();
+        buff += leftOvers;
+        leftOvers = "";
     }
 }
