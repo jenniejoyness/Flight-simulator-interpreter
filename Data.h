@@ -30,6 +30,7 @@ public:
     void addVarToSymbleTable(string var, double value);
     void updateSymbleTable(string var, double value);
     string getPath(string var);
+    string getVarByPath(string path);
     double getValueOfVar(string var);
     string getPathOfVar(string var);
     bool isVar(string str);

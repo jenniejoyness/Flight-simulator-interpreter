@@ -10,6 +10,8 @@
 #include "DefineVarCommand.h"
 #include "EqualCommand.h"
 #include "ConnectCommand.h"
+#include "SleepCommand.h"
+#include "Enterc.h"
 
 map<string, ExpressionCommand*> GetCommandMap::getMap() {
     map<string, ExpressionCommand*> commandMap;
@@ -27,6 +29,10 @@ map<string, ExpressionCommand*> GetCommandMap::getMap() {
                                                         new ExpressionCommand(new EqualCommand())));
     commandMap.insert(pair<string, ExpressionCommand *>("connect",
                                                         new ExpressionCommand(new ConnectCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("sleep",
+                                                        new ExpressionCommand(new SleepCommand())));
+    commandMap.insert(pair<string, ExpressionCommand *>("enterc",
+                                                        new ExpressionCommand(new Enterc())));
 
     return commandMap;
 }

@@ -117,6 +117,15 @@ double Data::getValueByPath(string path) {
     return valuePath.find(path)->second;
 }
 
+string Data::getVarByPath(string path) {
+    for (auto pair: varPath){
+        if(pair.second == path){
+            return pair.first;
+        }
+    }
+
+}
+
 void Data::updateValuePathMap(string path, double value) {
     valuePath.find(path)->second = value;
 }

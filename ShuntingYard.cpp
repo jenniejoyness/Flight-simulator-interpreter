@@ -173,12 +173,16 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
     for (int i = 0; i < chunks.size(); ++i) {
         //is a var in the symbol table map
         if(data->isVar(chunks[i])){
-            chunks[i] = to_string(data->getValueOfVar(chunks[i]));
+            string path = data->getPathOfVar(chunks[i]);
+            chunks[i] = to_string(data->getValueByPath(path));
         }
     }
     return chunks;
 }
 
+/*
+ * swap any unary minus operators with (0-x)
+ */
 string ShuntingYard::checkMinus(string str) {
     int flag = 0;
     string s;
