@@ -38,12 +38,12 @@ Expression* ShuntingYard::infixToPostfix(string str){
         if(!isOperator(s[i][0]) && s[i]!= "(" && s[i]!= ")")
             output.push_back((s[i]));
 
-        // If the scanned character is an ‘(‘, push it to the stack.
+            // If the scanned character is an ‘(‘, push it to the stack.
         else if(s[i] == "(")
             stack.push("(");
 
-        // If the scanned character is an ‘)’, pop and to output string from the stack
-        // until an ‘(‘ is encountered.
+            // If the scanned character is an ‘)’, pop and to output string from the stack
+            // until an ‘(‘ is encountered.
         else if(s[i] == ")")
         {
             while(stack.top() != "N" && stack.top() != "(")
@@ -58,7 +58,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
                 stack.pop();
             }
         }
-        //If an operator is scanned
+            //If an operator is scanned
         else{
             while(stack.top() != "N" && getPriority(s[i]) <= getPriority(stack.top()))
             {
@@ -93,8 +93,8 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix){
             stack.pop();
             switch (post[0]){
                 case '+':
-                  stack.push(new Plus(left,right));
-                  break;
+                    stack.push(new Plus(left,right));
+                    break;
                 case '-':
                     stack.push(new Minus(left,right));
                     break;
@@ -170,18 +170,25 @@ vector<string> ShuntingYard::splitString(string str) {
  * swaps the var in the map to the double value in the map
  */
 vector<string> ShuntingYard::swapVars(vector<string> chunks) {
-    for (auto chunk: chunks) {
+    vector<string> newStr;
+    for (int i=0; i<chunks.size();i++) {
         //is a var in the symbol table map
-        if(data->isVar(chunk)){
+        if(data->isVar(chunks[i])){
             try {
-                string path = data->getPathOfVar(chunk);
-                chunk = to_string(data->getValueByPath(path));
+                string path = data->getPathOfVar(chunks[i]);
+                chunks[i] = to_string(data->getValueByPath(path));
             } catch (...) {
-                chunk = to_string(data->getValueOfVar(chunk));
+                chunks[i] = to_string(data->getValueOfVar(chunks[i]));
             }
+            vector<string> temp = splitString(checkMinus(chunks[i]));
+            for (auto t : temp) {
+                newStr.emplace_back(t);
+            }
+        } else {
+            newStr.emplace_back(chunks[i]);
         }
     }
-    return chunks;
+    return newStr;
 }
 
 /*

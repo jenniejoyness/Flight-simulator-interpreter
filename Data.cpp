@@ -32,8 +32,8 @@ Data::Data(){
  * in the valuePath map, inserting 0 as default
  */
 void Data::setPaths() {
-    for (int i = 0; i < paths.size(); ++i) {
-        valuePath.insert(pair<string,double>(paths[i],0));
+    for (auto path: paths) {
+        valuePath.insert(pair<string,double>(path,0));
     }
 }
 
