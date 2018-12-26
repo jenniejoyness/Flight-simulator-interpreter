@@ -5,6 +5,7 @@
 class Expression {
 public:
     virtual double Calculate() = 0;
+    virtual ~Expression() = default;
 };
 
 #endif //MILLSTONE_EXPRESSION_H

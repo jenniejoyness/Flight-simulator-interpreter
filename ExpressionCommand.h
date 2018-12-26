@@ -16,6 +16,7 @@ public:
     ExpressionCommand(Command* command);
     Command* getCommand();
     double Calculate() override;
+    ~ExpressionCommand();
 
 };
 

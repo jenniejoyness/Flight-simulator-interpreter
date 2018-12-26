@@ -23,13 +23,8 @@
 using namespace std;
 
 class ServerSocket{
-
-    struct sockaddr_in serverSocket;
-
 public:
-    ServerSocket();
     static void* openSocket(void* arg);
-
 };
 
 
