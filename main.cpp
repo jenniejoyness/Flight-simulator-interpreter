@@ -58,9 +58,6 @@ int main() {
     close(data->getClientId());
     delete reader;
     //pthread_exit(nullptr);
-  /*  ShuntingYard* shuntingYard = new ShuntingYard(data);
-    double x = shuntingYard->infixToPostfix("--87")->Calculate();
-    cout << x;*/
 
     return 0;
 

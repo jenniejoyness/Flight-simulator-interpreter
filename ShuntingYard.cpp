@@ -28,7 +28,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
     stack<string> stack;
     stack.push("N");
     //splitting the string into chunks and swapping the vars for numbers
-    vector<string> s = swapVars(splitString(checkMinus(str)));
+    vector<string> s = checkMinus(swapVars(splitString(str)));
 
     int l = s.size();
     vector<string>  output;
@@ -170,79 +170,60 @@ vector<string> ShuntingYard::splitString(string str) {
  * swaps the var in the map to the double value in the map
  */
 vector<string> ShuntingYard::swapVars(vector<string> chunks) {
-    vector<string> newStr;
-    for (int i=0; i<chunks.size();i++) {
+    for (int i = 0; i < chunks.size(); i++) {
         //is a var in the symbol table map
-        if(data->isVar(chunks[i])){
+        if(data->isVar(chunks[i])) {
             try {
                 string path = data->getPathOfVar(chunks[i]);
                 chunks[i] = to_string(data->getValueByPath(path));
             } catch (...) {
                 chunks[i] = to_string(data->getValueOfVar(chunks[i]));
             }
-            vector<string> temp = splitString(checkMinus(chunks[i]));
-            for (auto t : temp) {
-                newStr.emplace_back(t);
-            }
-        } else {
-            newStr.emplace_back(chunks[i]);
         }
     }
-    return newStr;
+    return chunks;
 }
 
 /*
  * swap any unary minus operators with (0-x)
  */
-string ShuntingYard::checkMinus(string &str) {
+vector<string> ShuntingYard::checkMinus(vector<string> str) {
     int flag = 0;
-    string s;
+    vector<string> s;
+    int temp = 1;
 
-    for (int i = 0; i < str.length() - 1; i++) {
-        if (i == 0 && str[i] == '-') {
-            s += "(";
-            s += "0";
-            s += "-";
-            flag = 1;
+    for (int i = 0; i < str.size(); i++) {
+        if (i == 0) {
+            if (str[i] == "-") {
+                s.emplace_back("(");
+                s.emplace_back("0");
+                s.emplace_back("-");
+                flag = 1;
+            } else {
+                s.emplace_back(str[i]);
+            }
             continue;
         }
-        if (flag && isOperator(str[i])) {
-            s+= ")";
+        if (flag && !isOperator(str[i][0])) {
+            int j = 0;
+            s.emplace_back(str[i]);
+            while (j < temp) {
+                s.emplace_back(")");
+                j++;
+            }
             flag = 0;
+            continue;
+        } else if (flag) {
+            temp++;
         }
-        switch (str[i]) {
-            case 42:
-                s += "*";
-                break;
-            case 43:
-                s += "+";
-                break;
-            case 45:
-                s += "-";
-                break;
-            case 47:
-                s += "/";
-                break;
-            case 40:
-                s += "(";
-                break;
-            case 41:
-                s += ")";
-                break;
-            default:
-                s += str[i];
-        }
-        if ((isOperator(str[i]) || str[i] == '(') && str[i + 1] == '-') {
-            s += "(";
-            s += "0";
-            s += "-";
+        if ((isOperator(str[i - 1][0]) || str[i - 1] == "(") && str[i] == "-") {
+            s.emplace_back( "(");
+            s.emplace_back("0");
+            s.emplace_back("-");
             flag = 1;
-            i++;
+        } else {
+            s.emplace_back(str[i]);
         }
-    }
-    s += str[str.length() -1];
-    if (flag) {
-        s+= ")";
     }
     return s;
 }
