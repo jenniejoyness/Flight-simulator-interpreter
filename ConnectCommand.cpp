@@ -24,6 +24,7 @@ void ConnectCommand::doCommand() {
     delete params;
 }
 
-ConnectCommand::~ConnectCommand() {
+/*
+ConnectCommand6::~ConnectCommand() {
     close(this->data->getClientId());
-}
+}*/

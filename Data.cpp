@@ -141,3 +141,11 @@ string Data::getVarByPath(string path) {
 void Data::updateValuePathMap(string path, double value) {
     valuePath.find(path)->second = value;
 }
+
+void Data::setShouldStop(bool shouldStop) {
+    this->shouldStop = shouldStop;
+}
+
+bool Data::isShouldStop() const {
+    return shouldStop;
+}

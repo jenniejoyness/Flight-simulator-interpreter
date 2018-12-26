@@ -14,7 +14,7 @@ class OpenDataServerCommand: public Command {
 public:
     void doCommand() override;
     void setParameters(vector<string> params, Data* data) override;
-    ~OpenDataServerCommand();
+    //~OpenDataServerCommand();
 
     struct MyParams {
         Data* data;

@@ -33,7 +33,7 @@ void *ServerSocket::openSocket(void *arg) {
     string leftOvers;
 
     /* If connection is established then start communicating */
-    while (true) {
+    while (data->isShouldStop()) {
         bzero(buffer, 256);
         n = read(data->getServerId(), buffer, 255);
         if (n < 0) {

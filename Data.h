@@ -19,6 +19,7 @@ private:
     int clientId;
     int serverId;
     vector<string> paths;
+    bool shouldStop = true;
 
 public:
     map<string,string> getVarPathMap();
@@ -40,6 +41,8 @@ public:
     vector<string> getPathList();
     double getValueByPath(string path);
     void updateValuePathMap(string path, double value);
+    void setShouldStop(bool shouldStop);
+    bool isShouldStop() const;
 
 };
 

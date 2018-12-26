@@ -65,7 +65,7 @@ void DefineVarCommand::changingVarValue() {
         params.push_back(value);
         equalCommand->setParameters(params, data);
         equalCommand->doCommand();
-        delete equalCommand;
+        //delete equalCommand;
         //is a new var in the symbol map, need to add to map
     } else {
         data->addVarToSymbleTable(var,stoi(value));

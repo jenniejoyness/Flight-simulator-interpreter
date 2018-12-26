@@ -85,7 +85,9 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     Expression* newExpression;
     for (auto post : postfix){
         if(!isOperator(post[0]) || (isOperator(post[0]) && post.size() != 1)){
-            stack.push(new Num(stod(post)));
+            newExpression = new Num(stod(post));
+            stack.push(newExpression);
+            toBeDeleted.push_back(newExpression);
         }
         else {
             Expression* right = stack.top();
