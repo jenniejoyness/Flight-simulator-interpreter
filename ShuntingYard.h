@@ -20,7 +20,7 @@ public:
     Expression* stringToExpression(vector<string>  postfix);
     bool isOperator(char s);
     vector<string> swapVars(vector<string> withVars);
-    string checkMinus(string str);
+    string checkMinus(string &str);
 };
 
 #endif //MILLSTONE_SHUNTINGYARD_H

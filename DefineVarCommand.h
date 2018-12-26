@@ -14,8 +14,8 @@ class DefineVarCommand: public Command {
     bool bind;
     string value;
 public:
-    void setParameters(vector<string> params, Data *data);
-    void doCommand();
+    void setParameters(vector<string> params, Data *data) override;
+    void doCommand() override;
     void binding();
     void changingVarValue();
     //double findValue();

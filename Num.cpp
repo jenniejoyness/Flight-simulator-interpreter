@@ -1,14 +1,8 @@
 
-#include "Expression.h"
+#include "Num.h"
 
-class Num : public Expression {
-private:
-    double num;
+Num::Num(double num) : num(num) {}
 
-public:
-    Num(double num) : num(num) {}
-
-    double Calculate() {
-        return num;
-    }
-};
+double Num::Calculate() {
+    return num;
+}

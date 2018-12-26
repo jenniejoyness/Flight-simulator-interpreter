@@ -8,10 +8,10 @@
 
 void SleepCommand::setParameters(vector<string> params, Data *data) {
     ShuntingYard shuntingYard(data);
-    seconds = (int)shuntingYard.infixToPostfix(params[0])->Calculate() * 1000;
+    seconds = (int)shuntingYard.infixToPostfix(params[0])->Calculate();
 
 
 }
 void SleepCommand::doCommand() {
-    sleep(seconds);
+    usleep(seconds);
 }

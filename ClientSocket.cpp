@@ -15,6 +15,7 @@ struct MyParams {
  * openning client socket tats connects the simulator
  */
 void* ClientSocket::openSocket(void *arg) {
+
     struct MyParams *params = (struct MyParams *) arg;
 
     int sockfd, portno;

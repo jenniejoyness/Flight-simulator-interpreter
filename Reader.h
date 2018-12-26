@@ -19,9 +19,9 @@ class Reader {
     Data* data;
 
 public:
-    Reader(Data* data, map<string,ExpressionCommand*> map);
+    Reader(Data *data, const map<string, ExpressionCommand *> &commandMap);
     vector<string> split(string str, string del);
-    vector<string> lexer(string line);
+    vector<string> lexer(string &line);
     void parser(vector<string>);
     string addSpaces(string str);
     bool isOperator(char s);

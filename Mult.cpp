@@ -1,10 +1,8 @@
-#include "BinaryExpression.h"
+#include "Mult.h"
 
-class Mult : public BinaryExpression {
-public:
-    Mult(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
+Mult::Mult(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
+                                                                                       rightExpression) {}
 
-    double Calculate() {
-        return leftExpression->Calculate() * rightExpression->Calculate();
-    }
-};
+double Mult::Calculate() {
+    return leftExpression->Calculate() * rightExpression->Calculate();
+}

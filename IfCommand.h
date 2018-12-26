@@ -10,8 +10,8 @@
 
 class IfCommand : public ConditionCommand{
 public:
-    void doCommand();
-    void setParameters(vector<string> params, Data *data);
+    void doCommand() override;
+    void setParameters(vector<string> params, Data *data) override;
 };
 
 

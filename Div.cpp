@@ -1,14 +1,10 @@
-#include "BinaryExpression.h"
+#include "Div.h"
 
-class Div : public BinaryExpression {
+Div::Div(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
 
-public:
-    Div(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression, rightExpression) {}
-
-    double Calculate() {
-        if (rightExpression->Calculate() == 0) {
-            throw "cannot divide by zero";
-        }
-        return leftExpression->Calculate() / rightExpression->Calculate();
+double Div::Calculate() {
+    if (rightExpression->Calculate() == 0) {
+        throw "cannot divide by zero";
     }
-};
+    return leftExpression->Calculate() / rightExpression->Calculate();
+}

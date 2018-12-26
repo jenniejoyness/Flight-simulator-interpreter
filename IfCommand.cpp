@@ -10,6 +10,7 @@ void IfCommand::doCommand() {
     if (stuff(condition)) {
         commandExecute(commands, reader);
     }
+    delete reader;
 }
 
 void IfCommand::setParameters(vector<string> params, Data *data) {

@@ -5,12 +5,14 @@
 #include <regex>
 #include <list>
 
-Reader::Reader(Data* data, map<string,ExpressionCommand*> map) {
+/*Reader::Reader(Data* data, map<string,ExpressionCommand*> &map) {
     this->data = data;
     this->commandMap = map;
-}
+}*/
+Reader::Reader(Data *data, const map<string, ExpressionCommand *> &commandMap) : commandMap(commandMap), data(data) {}
 
-vector<string> Reader::lexer(string line) {
+
+vector<string> Reader::lexer(string &line) {
     string addedSpaces = addSpaces(line);
     vector<string> chopped = split(addedSpaces, " ");
     return findParameters(chopped);
@@ -98,11 +100,7 @@ bool Reader::isOperator(char s) {
  * add a parameter to the list of parameters from string line from index j to index i
  */
 void Reader::addParameter(int j, int i, vector<string> &params, vector<string> line) {
-    string s = "";
-  /*  if (line[j] == "-") {
-        s += "0";
-    }
-*/
+    string s;
     for (j; j <= i; j++) {
         s += line[j];
     }
@@ -169,7 +167,7 @@ vector<string> Reader::split(string line, string delimiter) {
     vector<string> data;
     size_t pos = 0;
     while ((pos = line.find(delimiter)) != string::npos) {
-        if (line.substr(0, pos) != "") {
+        if (!line.substr(0, pos).empty()) {
             data.push_back(line.substr(0, pos));
         }
         line.erase(0, pos + delimiter.length());
@@ -193,7 +191,7 @@ void Reader::conditionParser(string str) {
     vector<string> chopped = split(str, "#");
     //add spaces to the condition string and split
     vector<string> condition = split(addSpaces(chopped[0]), " ");
-    if (condition.back() == "") {
+    if (condition.back().empty()) {
         condition.erase(condition.end());
     }
     chopped.erase(chopped.begin());
@@ -201,7 +199,7 @@ void Reader::conditionParser(string str) {
     //sending each command line to lexer and adding to list of commands for the whilecommand
     for (int i = 0; i < chopped.size() - 1; ++i) {
         //if the line does not contains condition send to the lexer and add to params
-        if ((strstr(chopped[i].c_str(), "while") == NULL && strstr(chopped[i].c_str(), "if") == NULL)
+        if ((strstr(chopped[i].c_str(), "while") == nullptr && strstr(chopped[i].c_str(), "if") == nullptr)
             && !inAnotherCondtion) {
             if (lexer(chopped[i])[0] != "}") {
                 params.push_back(lexer(chopped[i]));
@@ -209,7 +207,7 @@ void Reader::conditionParser(string str) {
         } else {
             //in another condition
             inAnotherCondtion = true;
-            if (strstr(chopped[i].c_str(), "{") != NULL) {
+            if (strstr(chopped[i].c_str(), "{") != nullptr) {
                 counter++;
                 bracketInNextLine = false;
             }
@@ -217,10 +215,10 @@ void Reader::conditionParser(string str) {
         //counting the brackets of the next condition in order to find the end of this condition
         if (inAnotherCondtion) {
             //add to brackets counter is see an opening bracket
-            if (bracketInNextLine && strstr(chopped[i].c_str(), "{") != NULL) {
+            if (bracketInNextLine && strstr(chopped[i].c_str(), "{") != nullptr) {
                 counter++;
                 //decrease the brackets, closing a condition
-            } else if (strstr(chopped[i].c_str(), "}") != NULL) {
+            } else if (strstr(chopped[i].c_str(), "}") != nullptr) {
                 counter--;
             }
             s += chopped[i] + "#";

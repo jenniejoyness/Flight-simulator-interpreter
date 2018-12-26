@@ -18,6 +18,8 @@ void ConnectCommand::doCommand() {
     params->port = this->port;
     params->ipAddress = this->ipAddress;
     params->data = this->data;
-    pthread_t id;
-    pthread_create(&id, nullptr, ClientSocket::openSocket, params);
+    //pthread_t id;
+    //pthread_create(&id, nullptr, ClientSocket::openSocket, params);
+    ClientSocket::openSocket(params);
+    delete params;
 }

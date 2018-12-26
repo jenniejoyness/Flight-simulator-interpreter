@@ -15,7 +15,7 @@ private:
 public:
     ExpressionCommand(Command* command);
     Command* getCommand();
-    double Calculate();
+    double Calculate() override;
 
 };
 

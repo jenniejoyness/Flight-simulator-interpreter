@@ -1,11 +1,7 @@
-#include "BinaryExpression.h"
+#include "Plus.h"
 
-class Plus : public BinaryExpression {
+Plus::Plus(Expression *left, Expression *right) : BinaryExpression(left, right) {}
 
-public:
-    Plus(Expression *left, Expression *right) : BinaryExpression(left, right) {}
-
-    double Calculate() {
-        return leftExpression->Calculate() + rightExpression->Calculate();
-    }
-};
+double Plus::Calculate() {
+    return leftExpression->Calculate() + rightExpression->Calculate();
+}

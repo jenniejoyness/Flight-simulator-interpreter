@@ -5,13 +5,14 @@
 #include "GetCommandMap.h"
 #include "ShuntingYard.h"
 #include <regex>
+#include <unistd.h>
 
 using namespace std;
 
 ifstream file;
 int main() {
     map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
-    Data* data = new Data;
+    Data* data = new Data();
     file.open("script.txt", ifstream::in | ifstream::app);
     if (!file) {
         throw "Failed opening file";
@@ -25,17 +26,17 @@ int main() {
     bool inCondition = false;
     while (getline(file,buffer)) {
 
-        if (strstr(buffer.c_str(), "while")!= NULL || strstr(buffer.c_str(), "if")!= NULL) {
+        if (strstr(buffer.c_str(), "while")!= nullptr || strstr(buffer.c_str(), "if")!= nullptr) {
             inCondition = true;
-            if (strstr(buffer.c_str(), "{")!= NULL) {
+            if (strstr(buffer.c_str(), "{")!= nullptr) {
                 counter++;
                 bracketInNextLine = false;
             }
         }
         if (inCondition) {
-            if (bracketInNextLine && strstr(buffer.c_str(), "{")!= NULL) {
+            if (bracketInNextLine && strstr(buffer.c_str(), "{")!= nullptr) {
                 counter++;
-            } else if (strstr(buffer.c_str(), "}")!= NULL) {
+            } else if (strstr(buffer.c_str(), "}")!= nullptr) {
                 counter--;
             }
             conditionCommand += buffer + "#";
@@ -51,7 +52,14 @@ int main() {
 
     }
 
-    while (true){}
+    cout<<"finished"<<endl;
+
+    close(data->getServerId());
+    close(data->getClientId());
+    delete reader;
+    //pthread_exit(nullptr);
+
+    //while (true){}
     return 0;
 
 }

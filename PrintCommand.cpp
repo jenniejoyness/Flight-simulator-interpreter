@@ -9,9 +9,14 @@ void PrintCommand::doCommand() {
     if (print[0] == '"' && print[print.size() - 1] == '"') {
         print = print.substr(1 , print.size() - 2);
     }
-    /*if (data->getsymbleTablehMap().find(print) != data->getsymbleTablehMap().end()) {
-        print = to_string(data->getValueOfVar(print));
-    }*/
+    if(data->isVar(print)) {
+        try {
+            string path = data->getPathOfVar(print);
+            print = to_string(data->getValueByPath(path));
+        } catch (...) {
+            print = to_string(data->getValueOfVar(print));
+        }
+    }
     cout << print << endl;
 }
 

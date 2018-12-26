@@ -2,11 +2,11 @@
 #include <algorithm>
 #include <bits/stdc++.h>
 #include "ShuntingYard.h"
-#include "Num.cpp"
-#include "Minus.cpp"
-#include "Plus.cpp"
-#include "Mult.cpp"
-#include "Div.cpp"
+#include "Num.h"
+#include "Minus.h"
+#include "Plus.h"
+#include "Mult.h"
+#include "Div.h"
 
 
 
@@ -82,27 +82,27 @@ Expression* ShuntingYard::infixToPostfix(string str){
 
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
-    for (int i = 0; i < postfix.size(); ++i){
-        if(!isOperator(postfix[i][0])){
-            stack.push(new Num(stod(postfix[i])));
+    for (auto post : postfix){
+        if(!isOperator(post[0])){
+            stack.push(new Num(stod(post)));
         }
         else {
             Expression* right = stack.top();
             stack.pop();
             Expression* left = stack.top();
             stack.pop();
-            switch (postfix[i][0]){
+            switch (post[0]){
                 case '+':
-                  stack.push(new Plus(left,right)) ;
+                  stack.push(new Plus(left,right));
                   break;
                 case '-':
-                    stack.push(new Minus(left,right)) ;
+                    stack.push(new Minus(left,right));
                     break;
                 case '/':
-                    stack.push(new Div(left,right)) ;
+                    stack.push(new Div(left,right));
                     break;
                 case '*':
-                    stack.push(new Mult(left,right)) ;
+                    stack.push(new Mult(left,right));
                     break;
             }
 
@@ -129,29 +129,29 @@ vector<string> ShuntingYard::splitString(string str) {
         if(!isOperator(str[i]) && str[i]!= '(' && str[i]!= ')' && str[i]!= ' ') {
             s += str[i];
         } else {
-            if (s != ""){
+            if (!s.empty()){
                 chopped.push_back(s);
             }
             //adding operator or '(' or ')'
             if (str[i]!= ' ') {
                 switch (str[i]) {
                     case 42:
-                        chopped.push_back("*");
+                        chopped.emplace_back("*");
                         break;
                     case 43:
-                        chopped.push_back("+");
+                        chopped.emplace_back("+");
                         break;
                     case 45:
-                        chopped.push_back("-");
+                        chopped.emplace_back("-");
                         break;
                     case 47:
-                        chopped.push_back("/");
+                        chopped.emplace_back("/");
                         break;
                     case 40:
-                        chopped.push_back("(");
+                        chopped.emplace_back("(");
                         break;
                     case 41:
-                        chopped.push_back(")");
+                        chopped.emplace_back(")");
                         break;
                 }
 
@@ -160,7 +160,7 @@ vector<string> ShuntingYard::splitString(string str) {
         }
         i++;
     }
-    if (s != "") {
+    if (!s.empty()) {
         chopped.push_back(s);
     }
     return chopped;
@@ -170,11 +170,15 @@ vector<string> ShuntingYard::splitString(string str) {
  * swaps the var in the map to the double value in the map
  */
 vector<string> ShuntingYard::swapVars(vector<string> chunks) {
-    for (int i = 0; i < chunks.size(); ++i) {
+    for (auto chunk: chunks) {
         //is a var in the symbol table map
-        if(data->isVar(chunks[i])){
-            string path = data->getPathOfVar(chunks[i]);
-            chunks[i] = to_string(data->getValueByPath(path));
+        if(data->isVar(chunk)){
+            try {
+                string path = data->getPathOfVar(chunk);
+                chunk = to_string(data->getValueByPath(path));
+            } catch (...) {
+                chunk = to_string(data->getValueOfVar(chunk));
+            }
         }
     }
     return chunks;
@@ -183,7 +187,7 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
 /*
  * swap any unary minus operators with (0-x)
  */
-string ShuntingYard::checkMinus(string str) {
+string ShuntingYard::checkMinus(string &str) {
     int flag = 0;
     string s;
 

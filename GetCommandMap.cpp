@@ -31,7 +31,7 @@ map<string, ExpressionCommand*> GetCommandMap::getMap() {
                                                         new ExpressionCommand(new ConnectCommand())));
     commandMap.insert(pair<string, ExpressionCommand *>("sleep",
                                                         new ExpressionCommand(new SleepCommand())));
-    commandMap.insert(pair<string, ExpressionCommand *>("enterc",
+    commandMap.insert(pair<string, ExpressionCommand *>("Enterc",
                                                         new ExpressionCommand(new Enterc())));
 
     return commandMap;

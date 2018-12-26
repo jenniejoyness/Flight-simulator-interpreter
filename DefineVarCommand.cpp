@@ -3,7 +3,6 @@
 //
 
 #include "DefineVarCommand.h"
-
 #include <cstring>
 #include "DefineVarCommand.h"
 #include "ShuntingYard.h"
@@ -14,7 +13,6 @@ void DefineVarCommand::setParameters(vector<string> params, Data *data) {
     //if has bind in command
     if(params.size() == 4){
         this->bind = true;
-        //this->value = to_string(shuntingYard.infixToPostfix(params[3])->Calculate());
         this->value = params[3];
         //does not have bind
     } else {
@@ -38,8 +36,9 @@ void DefineVarCommand::doCommand() {
  */
 void DefineVarCommand::binding() {
     //todo if path not in valuepath?
+    //todo - check if find works with char
     //found brackets, need to add path
-    if(value.find("\"") == 0) {
+    if(value.find('\"') == 0) {
         data->addVarToPath(var,value);
         // add to symbol table
         data->addVarToSymbleTable(var,data->getValueByPath(value));

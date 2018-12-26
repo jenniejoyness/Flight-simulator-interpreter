@@ -12,8 +12,8 @@ class OpenDataServerCommand: public Command {
     int HZ;
     Data* data;
 public:
-    void doCommand();
-    void setParameters(vector<string> params, Data* data);
+    void doCommand() override;
+    void setParameters(vector<string> params, Data* data) override;
 
     struct MyParams {
         Data* data;

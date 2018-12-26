@@ -13,6 +13,7 @@ void WhileCommand::doCommand() {
     while (stuff(condition)) {
         commandExecute(commands, reader);
     }
+    delete reader;
 }
 
 

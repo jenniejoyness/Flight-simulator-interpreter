@@ -15,8 +15,8 @@ private:
     Data* data;
 
 public:
-void setParameters(vector<string> params, Data *data);
-void doCommand();
+void setParameters(vector<string> params, Data *data) override;
+void doCommand() override;
     struct MyParams {
         int port;
         string ipAddress;

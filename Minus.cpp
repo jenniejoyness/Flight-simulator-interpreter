@@ -1,12 +1,8 @@
 
-#include "BinaryExpression.h"
+#include "Minus.h"
 
-class Minus : public BinaryExpression {
-public:
-    Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
-                                                                                      rightExpression) {}
-
-    double Calculate() {
-        return leftExpression->Calculate() - rightExpression->Calculate();
-    }
-};
+Minus::Minus(Expression *leftExpression, Expression *rightExpression) : BinaryExpression(leftExpression,
+                                                                                         rightExpression) {}
+double Minus::Calculate() {
+    return leftExpression->Calculate() - rightExpression->Calculate();
+}
