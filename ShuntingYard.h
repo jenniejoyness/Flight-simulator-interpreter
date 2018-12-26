@@ -10,6 +10,7 @@ using namespace std;
 
 class ShuntingYard {
     Data* data;
+    vector<Expression*> toBeDeleted;
 public:
     ShuntingYard(Data* data){
         this->data = data;
@@ -21,6 +22,7 @@ public:
     bool isOperator(char s);
     vector<string> swapVars(vector<string> withVars);
     vector<string> checkMinus(vector<string> str);
+    ~ShuntingYard();
 };
 
 #endif //MILLSTONE_SHUNTINGYARD_H

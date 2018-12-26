@@ -82,6 +82,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
 
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
+    Expression* newExpression;
     for (auto post : postfix){
         if(!isOperator(post[0]) || (isOperator(post[0]) && post.size() != 1)){
             stack.push(new Num(stod(post)));
@@ -93,16 +94,24 @@ Expression* ShuntingYard::stringToExpression(vector<string> postfix){
             stack.pop();
             switch (post[0]){
                 case '+':
-                    stack.push(new Plus(left,right));
+                    newExpression = new Plus(left,right);
+                    stack.push(newExpression);
+                    toBeDeleted.push_back(newExpression);
                     break;
                 case '-':
-                    stack.push(new Minus(left,right));
+                    newExpression = new Minus(left,right);
+                    stack.push(newExpression);
+                    toBeDeleted.push_back(newExpression);
                     break;
                 case '/':
-                    stack.push(new Div(left,right));
+                    newExpression = new Div(left,right);
+                    stack.push(newExpression);
+                    toBeDeleted.push_back(newExpression);
                     break;
                 case '*':
-                    stack.push(new Mult(left,right));
+                    newExpression = new Mult(left,right);
+                    stack.push(newExpression);
+                    toBeDeleted.push_back(newExpression);
                     break;
             }
 
@@ -250,4 +259,10 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
         s.emplace_back(")");
     }
     return s;
+}
+
+ShuntingYard::~ShuntingYard() {
+    for(auto expression: toBeDeleted){
+        delete(expression);
+    }
 }
