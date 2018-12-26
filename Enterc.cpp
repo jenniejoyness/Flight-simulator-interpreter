@@ -2,8 +2,7 @@
 using namespace std;
 
 void Enterc::doCommand() {
-    char buffer;
-    cout<<"enter a char"<<endl;
-    cin>>buffer;
+    cout<<"enter an input"<<endl;
+    cin.ignore();
 }
 void Enterc::setParameters(vector<string> params, Data *data) {}

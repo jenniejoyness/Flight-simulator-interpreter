@@ -83,7 +83,7 @@ Expression* ShuntingYard::infixToPostfix(string str){
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
     for (auto post : postfix){
-        if(!isOperator(post[0])){
+        if(!isOperator(post[0]) || (isOperator(post[0]) && post.size() != 1)){
             stack.push(new Num(stod(post)));
         }
         else {
@@ -194,18 +194,23 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
 
     for (int i = 0; i < str.size(); i++) {
         if (i == 0) {
-            if (str[i] == "-") {
+            if (str[i][0] == '-') {
                 s.emplace_back("(");
                 s.emplace_back("0");
-                s.emplace_back("-");
+                if (str[i].size() > 1) {
+                    s.emplace_back("-");
+                    s.emplace_back(str[i].substr(1, str[i].size()));
+                } else {
+                    s.emplace_back(str[i]);
+                }
                 flag = 1;
             } else {
                 s.emplace_back(str[i]);
             }
             continue;
         }
+        int j = 0;
         if (flag && !isOperator(str[i][0])) {
-            int j = 0;
             s.emplace_back(str[i]);
             while (j < temp) {
                 s.emplace_back(")");
@@ -213,17 +218,36 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
             }
             flag = 0;
             continue;
+        } else if (flag && str[i][0] != '-') {
+            while (j < temp) {
+                s.emplace_back(")");
+                j++;
+            }
+            flag = 0;
         } else if (flag) {
             temp++;
         }
-        if ((isOperator(str[i - 1][0]) || str[i - 1] == "(") && str[i] == "-") {
+        if ((isOperator(str[i - 1][0]) || str[i - 1] == "(") && str[i][0] == '-') {
             s.emplace_back( "(");
             s.emplace_back("0");
-            s.emplace_back("-");
+            if (str[i].size() > 1) {
+                s.emplace_back("-");
+                s.emplace_back(str[i].substr(1, str[i].size()));
+            } else {
+                s.emplace_back(str[i]);
+            }
             flag = 1;
         } else {
             s.emplace_back(str[i]);
         }
+    }
+    int j = 0;
+    if (flag) {
+        while (j < temp) {
+            s.emplace_back(")");
+            j++;
+        }
+        s.emplace_back(")");
     }
     return s;
 }
