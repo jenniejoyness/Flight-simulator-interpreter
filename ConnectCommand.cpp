@@ -23,3 +23,7 @@ void ConnectCommand::doCommand() {
     ClientSocket::openSocket(params);
     delete params;
 }
+
+ConnectCommand::~ConnectCommand() {
+    close(this->data->getClientId());
+}

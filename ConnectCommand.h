@@ -17,6 +17,7 @@ private:
 public:
 void setParameters(vector<string> params, Data *data) override;
 void doCommand() override;
+~ConnectCommand();
     struct MyParams {
         int port;
         string ipAddress;

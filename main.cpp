@@ -53,15 +53,7 @@ int main() {
     }
 
     cout<<"finished"<<endl;
-
-    //close(data->getServerId());
-    //close(data->getClientId());
     delete reader;
-    //pthread_exit(nullptr);
-
-/*    vector<string> s = {"-","-0.050112","/","70"};
-    ShuntingYard* shuntingYard = new ShuntingYard(data);
-    vector<string> t = shuntingYard->checkMinus(s);*/
     return 0;
 
 }

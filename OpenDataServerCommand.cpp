@@ -77,3 +77,7 @@ void OpenDataServerCommand::doCommand() {
     pthread_t id;
     pthread_create(&id, nullptr, ServerSocket::openSocket, params);
 }
+
+OpenDataServerCommand::~OpenDataServerCommand() {
+    close(this->data->getServerId());
+}
