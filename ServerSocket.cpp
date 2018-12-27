@@ -31,7 +31,7 @@ void *ServerSocket::openSocket(void *arg) {
 
     string buff;
     string leftOvers;
-
+    //pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
     /* If connection is established then start communicating */
     while (data->isShouldStop()) {
         bzero(buffer, 256);
@@ -59,9 +59,11 @@ void *ServerSocket::openSocket(void *arg) {
         }
         info.push_back(buff.substr(0, pos));
         buff = "";
+
         for (int i = 0; i < paths.size(); ++i) {
             data->updateValuePathMap(paths[i], stod(info[i]));
         }
+
         buff += leftOvers;
         leftOvers = "";
     }

@@ -10,12 +10,12 @@ void PrintCommand::doCommand() {
         print = print.substr(1 , print.size() - 2);
     }
     if(data->isVar(print)) {
-        try {
-            string path = data->getPathOfVar(print);
-            print = to_string(data->getValueByPath(path));
-        } catch (...) {
+       if (data->isVarPath(print)) {
+           string path = data->getPathOfVar(print);
+           print = to_string(data->getValueByPath(path));
+       } else {
             print = to_string(data->getValueOfVar(print));
-        }
+       }
     }
     cout << print << endl;
 }

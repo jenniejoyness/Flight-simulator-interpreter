@@ -10,10 +10,10 @@
 using namespace std;
 
 ifstream file;
-int main() {
+int main(int argc, char* argv[]) {
     map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
     Data* data = new Data();
-    file.open("script.txt", ifstream::in | ifstream::app);
+    file.open(argv[1], ifstream::in | ifstream::app);
     if (!file) {
         throw "Failed opening file";
     }

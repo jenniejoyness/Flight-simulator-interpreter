@@ -184,10 +184,10 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
     for (int i = 0; i < chunks.size(); i++) {
         //is a var in the symbol table map
         if(data->isVar(chunks[i])) {
-            try {
+            if (data->isVarPath(chunks[i])) {
                 string path = data->getPathOfVar(chunks[i]);
                 chunks[i] = to_string(data->getValueByPath(path));
-            } catch (...) {
+            } else {
                 chunks[i] = to_string(data->getValueOfVar(chunks[i]));
             }
         }
@@ -201,16 +201,19 @@ vector<string> ShuntingYard::swapVars(vector<string> chunks) {
 vector<string> ShuntingYard::checkMinus(vector<string> str) {
     int flag = 0;
     vector<string> s;
-    int temp = 1;
+    int bracketsNum = 1;
 
     for (int i = 0; i < str.size(); i++) {
         if (i == 0) {
+            //check if in the first place there is a minus
             if (str[i][0] == '-') {
                 s.emplace_back("(");
                 s.emplace_back("0");
+                //if it's because negative number split it into two cells
                 if (str[i].size() > 1) {
                     s.emplace_back("-");
                     s.emplace_back(str[i].substr(1, str[i].size()));
+                    //if no- insert as is
                 } else {
                     s.emplace_back(str[i]);
                 }
@@ -221,23 +224,27 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
             continue;
         }
         int j = 0;
+        //if was minus and now there is a number - insert it and (
         if (flag && !isOperator(str[i][0])) {
             s.emplace_back(str[i]);
-            while (j < temp) {
+            while (j < bracketsNum) {
                 s.emplace_back(")");
                 j++;
             }
             flag = 0;
             continue;
+            //if its another operator
         } else if (flag && str[i][0] != '-') {
-            while (j < temp) {
+            while (j < bracketsNum) {
                 s.emplace_back(")");
                 j++;
             }
             flag = 0;
+            //if its minus again
         } else if (flag) {
-            temp++;
+            bracketsNum++;
         }
+        //if its minus and before it was operator or (
         if ((isOperator(str[i - 1][0]) || str[i - 1] == "(") && str[i][0] == '-') {
             s.emplace_back( "(");
             s.emplace_back("0");
@@ -254,7 +261,7 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
     }
     int j = 0;
     if (flag) {
-        while (j < temp) {
+        while (j < bracketsNum) {
             s.emplace_back(")");
             j++;
         }
@@ -262,7 +269,6 @@ vector<string> ShuntingYard::checkMinus(vector<string> str) {
     }
     return s;
 }
-
 ShuntingYard::~ShuntingYard() {
     for(auto expression: toBeDeleted){
         delete(expression);

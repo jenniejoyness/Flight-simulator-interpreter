@@ -56,7 +56,7 @@ void DefineVarCommand::binding() {
  * if is not var gear - add to symbol table
  */
 void DefineVarCommand::changingVarValue() {
-    //if found the var in symbol table - send to equal command
+/*    //if found the var in symbol table - send to equal command
     if(data->isVar(var)){
         //calling equal command
         Command* equalCommand = new EqualCommand();
@@ -69,5 +69,6 @@ void DefineVarCommand::changingVarValue() {
         //is a new var in the symbol map, need to add to map
     } else {
         data->addVarToSymbleTable(var,stoi(value));
-    }
+    }*/
+    data->addVarToSymbleTable(var,stod(value));
 }

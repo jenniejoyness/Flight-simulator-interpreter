@@ -20,6 +20,7 @@ private:
     int serverId;
     vector<string> paths;
     bool shouldStop = true;
+    mutable pthread_mutex_t mutex;
 
 public:
     map<string,string> getVarPathMap();
@@ -38,11 +39,14 @@ public:
     double getValueOfVar(string var);
     string getPathOfVar(string var);
     bool isVar(string str);
+    bool isVarPath(string str);
     vector<string> getPathList();
     double getValueByPath(string path);
     void updateValuePathMap(string path, double value);
     void setShouldStop(bool shouldStop);
     bool isShouldStop() const;
+
+    pthread_mutex_t* getMutex() const;
 
 };
 

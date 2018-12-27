@@ -1,7 +1,8 @@
 #include <vector>
 #include "Data.h"
 
-Data::Data(){
+Data::Data() {
+    pthread_mutex_init(&mutex, nullptr);
     paths.emplace_back("\"/instrumentation/airspeed-indicator/indicated-speed-kt\"");
     paths.emplace_back("\"/instrumentation/altimeter/indicated-altitude-ft\"");
     paths.emplace_back("\"/instrumentation/altimeter/pressure-alt-ft\"");
@@ -66,7 +67,9 @@ int Data::getServerId() const {
  * update the value(double) in the symboltable map
  */
 void Data::updateSymbleTable(string var, double value) {
+    pthread_mutex_lock(&mutex);
     symbleTable.find(var)->second = value;
+    pthread_mutex_unlock(&mutex);
 }
 
 /*
@@ -80,7 +83,9 @@ void Data::addVarToPath(string var, string path) {
  * add var pair(var,value) to the symbolmap
  */
 void Data::addVarToSymbleTable(string var, double value) {
+    pthread_mutex_lock(&mutex);
     symbleTable.insert(pair<string, double>(var, value));
+    pthread_mutex_unlock(&mutex);
 }
 /*
  * return the whole symbol table map
@@ -100,14 +105,19 @@ string Data::getPath(string var) {
  * find the value of the var from the map and return
  */
 double Data::getValueOfVar(string var) {
-    return symbleTable.find(var)->second;
+    pthread_mutex_lock(&mutex);
+    double val = symbleTable.find(var)->second;
+    pthread_mutex_unlock(&mutex);
+    return val;
+
 }
 
 /*
  * returns path of var
  */
 string Data::getPathOfVar(string var) {
-    return varPath.find(var)->second;
+    string p = varPath.find(var)->second;
+    return p;
 }
 
 /*
@@ -121,12 +131,24 @@ bool Data::isVar(string str) {
     }
     return false;
 }
+
+bool Data::isVarPath(string str) {
+    for (auto pair: varPath){
+        if(pair.first == str){
+            return true;
+        }
+    }
+    return false;
+}
 vector<string> Data::getPathList() {
     return paths;
 }
 
 double Data::getValueByPath(string path) {
-    return valuePath.find(path)->second;
+    pthread_mutex_lock(&mutex);
+    double val = valuePath.find(path)->second;
+   pthread_mutex_unlock(&mutex);
+    return val;
 }
 
 string Data::getVarByPath(string path) {
@@ -139,7 +161,9 @@ string Data::getVarByPath(string path) {
 }
 
 void Data::updateValuePathMap(string path, double value) {
+    pthread_mutex_lock(&mutex);
     valuePath.find(path)->second = value;
+    pthread_mutex_unlock(&mutex);
 }
 
 void Data::setShouldStop(bool shouldStop) {
@@ -148,4 +172,8 @@ void Data::setShouldStop(bool shouldStop) {
 
 bool Data::isShouldStop() const {
     return shouldStop;
+}
+
+ pthread_mutex_t* Data::getMutex() const {
+    return &mutex;
 }

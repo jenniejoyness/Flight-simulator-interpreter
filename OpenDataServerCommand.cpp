@@ -76,10 +76,6 @@ void OpenDataServerCommand::doCommand() {
     params->data = this->data;
     pthread_t id;
     pthread_create(&id, nullptr, ServerSocket::openSocket, params);
-    delete params;
+    //delete params;
 }
 
-/*
-OpenDataServerCommand::~OpenDataServerCommand() {
-    close(this->data->getServerId());
-}*/
