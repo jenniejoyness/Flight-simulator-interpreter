@@ -10,6 +10,6 @@ Command *ExpressionCommand::getCommand() {
     return command;
 }
 
-/*ExpressionCommand::~ExpressionCommand() {
+ExpressionCommand::~ExpressionCommand() {
     delete command;
-}*/
+}

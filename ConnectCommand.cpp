@@ -17,6 +17,6 @@ void ConnectCommand::doCommand() {
     //pthread_t id;
     //pthread_create(&id, nullptr, ClientSocket::openSocket, params);
     ClientSocket::openSocket(params);
-    //delete params;
+    delete params;
 }
 

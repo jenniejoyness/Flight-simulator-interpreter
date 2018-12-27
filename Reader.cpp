@@ -5,10 +5,7 @@
 #include <regex>
 #include <list>
 
-/*Reader::Reader(Data* data, map<string,ExpressionCommand*> &map) {
-    this->data = data;
-    this->commandMap = map;
-}*/
+
 Reader::Reader(Data *data, const map<string, ExpressionCommand *> &commandMap) : commandMap(commandMap), data(data) {}
 
 /*
@@ -40,7 +37,6 @@ void Reader::parser(vector<string> lineData) {
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command
     expression->Calculate();
-    //delete expression;
 }
 
 

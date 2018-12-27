@@ -12,7 +12,7 @@ public:
     virtual void doCommand() = 0;
 
     virtual void setParameters(vector<string> params, Data *data) = 0;
-    // virtual ~Command() = default;
+    virtual ~Command() = default;
 };
 
 #endif //MILLSTONE_COMMAND_H

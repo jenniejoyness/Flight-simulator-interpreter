@@ -1,3 +1,6 @@
+#include "Runner.h"
+
+/*
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -56,4 +59,10 @@ int main() {
     delete reader;
     return 0;
 
+}*/
+int main(int argc, char* argv[]) {
+    Runner runner;
+    runner.run(argv[1]);
+    runner.exit();
+    return 0;
 }

@@ -1,6 +1,3 @@
-//
-// Created by jennie on 12/26/18.
-//
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -9,10 +6,11 @@
 #include "ShuntingYard.h"
 #include <regex>
 #include <unistd.h>
-
 #include "Runner.h"
+
 void Runner::run(char *fileName) {
-    map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
+    GetCommandMap getCommandMap;
+    map<string, ExpressionCommand*> commandMap = getCommandMap.getMap();
     Data* data = new Data();
     this->data = data;
     ifstream file;
@@ -59,9 +57,8 @@ void Runner::run(char *fileName) {
     delete reader;
 }
 
-/*
 void Runner::exit() {
     close(data->getServerId());
     close(data->getClientId());
     delete(data);
-}*/
+}

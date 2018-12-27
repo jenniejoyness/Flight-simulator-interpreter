@@ -10,7 +10,7 @@
 #include "Enterc.h"
 
 map<string, ExpressionCommand *> GetCommandMap::getMap() {
-    map<string, ExpressionCommand *> commandMap;
+    //map<string, ExpressionCommand *> commandMap;
     commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
                                                         new ExpressionCommand(new OpenDataServerCommand())));
     commandMap.insert(pair<string, ExpressionCommand *>("while",
@@ -31,4 +31,10 @@ map<string, ExpressionCommand *> GetCommandMap::getMap() {
                                                         new ExpressionCommand(new Enterc())));
 
     return commandMap;
+}
+
+GetCommandMap::~GetCommandMap() {
+    for (auto command : commandMap) {
+        delete command.second;
+    }
 }
