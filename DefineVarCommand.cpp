@@ -11,7 +11,7 @@ void DefineVarCommand::setParameters(vector<string> params, Data *data) {
 
         this->bind = true;
         this->value = params[3];
-
+int s;
     } else {
 
         this->bind = false;
