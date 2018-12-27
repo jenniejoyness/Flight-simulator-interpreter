@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/21/18.
-//
-
 #include "GetCommandMap.h"
 #include "OpenDataServerCommand.h"
 #include "WhileCommand.h"
@@ -13,8 +9,8 @@
 #include "SleepCommand.h"
 #include "Enterc.h"
 
-map<string, ExpressionCommand*> GetCommandMap::getMap() {
-    map<string, ExpressionCommand*> commandMap;
+map<string, ExpressionCommand *> GetCommandMap::getMap() {
+    map<string, ExpressionCommand *> commandMap;
     commandMap.insert(pair<string, ExpressionCommand *>("openDataServer",
                                                         new ExpressionCommand(new OpenDataServerCommand())));
     commandMap.insert(pair<string, ExpressionCommand *>("while",

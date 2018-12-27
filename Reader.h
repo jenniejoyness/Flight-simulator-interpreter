@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/13/18.
-//
-
 #ifndef MILLSTONE_COMMANDREADER_H
 #define MILLSTONE_COMMANDREADER_H
 

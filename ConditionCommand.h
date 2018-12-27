@@ -1,7 +1,3 @@
-//
-// Created by jennie on 12/20/18.
-//
-
 #ifndef MILLSTONE_CONDITIONCOMMAND_H
 #define MILLSTONE_CONDITIONCOMMAND_H
 
@@ -15,14 +11,18 @@ class ConditionCommand : public Command {
 protected:
     vector<string> condition;
     vector<vector<string>> commands;
-    Data* data;
-    map<string, ExpressionCommand*> commandMap;
+    Data *data;
+    map<string, ExpressionCommand *> commandMap;
 public:
 
-    void setCommandsParam(vector<vector<string>> commands, map<string, ExpressionCommand*> commandMap);
+    void setCommandsParam(vector<vector<string>> commands, map<string, ExpressionCommand *> commandMap);
+
     bool isConditionOperator(char c);
-    bool stuff(vector<string> condition);
-    void commandExecute(vector<vector<string>> commands, Reader* reader);
+
+    bool calculateCondition(vector<string> condition);
+
+    void commandExecute(vector<vector<string>> commands, Reader *reader);
 
 };
+
 #endif //MILLSTONE_CONDITIONCOMMAND_H

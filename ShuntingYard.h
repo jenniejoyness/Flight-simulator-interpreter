@@ -1,4 +1,3 @@
-
 #ifndef MILLSTONE_SHUNTINGYARD_H
 #define MILLSTONE_SHUNTINGYARD_H
 using namespace std;
@@ -9,19 +8,27 @@ using namespace std;
 #include <vector>
 
 class ShuntingYard {
-    Data* data;
-    vector<Expression*> toBeDeleted;
+    Data *data;
+    vector<Expression *> toBeDeleted;
 public:
-    ShuntingYard(Data* data){
+    ShuntingYard(Data *data) {
         this->data = data;
     }
+
     vector<string> splitString(string str);
+
     int getPriority(string C);
-    Expression*  infixToPostfix(string str);
-    Expression* stringToExpression(vector<string>  postfix);
+
+    Expression *infixToPostfix(string str);
+
+    Expression *stringToExpression(vector<string> postfix);
+
     bool isOperator(char s);
+
     vector<string> swapVars(vector<string> withVars);
+
     vector<string> checkMinus(vector<string> str);
+
     ~ShuntingYard();
 };
 

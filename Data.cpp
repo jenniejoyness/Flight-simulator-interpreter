@@ -34,7 +34,7 @@ Data::Data() {
  */
 void Data::setPaths() {
     for (auto path: paths) {
-        valuePath.insert(pair<string,double>(path,0));
+        valuePath.insert(pair<string, double>(path, 0));
     }
 }
 
@@ -87,10 +87,11 @@ void Data::addVarToSymbleTable(string var, double value) {
     symbleTable.insert(pair<string, double>(var, value));
     pthread_mutex_unlock(&mutex);
 }
+
 /*
  * return the whole symbol table map
  */
-map<string,double > Data::getsymbleTablehMap() {
+map<string, double> Data::getsymbleTablehMap() {
     return symbleTable;
 }
 
@@ -113,7 +114,7 @@ double Data::getValueOfVar(string var) {
 }
 
 /*
- * returns path of var
+ * returns path of varPath map
  */
 string Data::getPathOfVar(string var) {
     string p = varPath.find(var)->second;
@@ -121,25 +122,29 @@ string Data::getPathOfVar(string var) {
 }
 
 /*
- * returns true if str is a var
+ * returns true if str is a var in symbol table
  */
 bool Data::isVar(string str) {
-    for (auto pair: symbleTable){
-        if(pair.first == str){
+    for (auto pair: symbleTable) {
+        if (pair.first == str) {
             return true;
         }
     }
     return false;
 }
 
+/*
+ * returns true if str is a var in varPath
+ */
 bool Data::isVarPath(string str) {
-    for (auto pair: varPath){
-        if(pair.first == str){
+    for (auto pair: varPath) {
+        if (pair.first == str) {
             return true;
         }
     }
     return false;
 }
+
 vector<string> Data::getPathList() {
     return paths;
 }
@@ -147,13 +152,13 @@ vector<string> Data::getPathList() {
 double Data::getValueByPath(string path) {
     pthread_mutex_lock(&mutex);
     double val = valuePath.find(path)->second;
-   pthread_mutex_unlock(&mutex);
+    pthread_mutex_unlock(&mutex);
     return val;
 }
 
 string Data::getVarByPath(string path) {
-    for (auto pair: varPath){
-        if(pair.second == path){
+    for (auto pair: varPath) {
+        if (pair.second == path) {
             return pair.first;
         }
     }
@@ -174,6 +179,6 @@ bool Data::isShouldStop() const {
     return shouldStop;
 }
 
- pthread_mutex_t* Data::getMutex() const {
+pthread_mutex_t *Data::getMutex() const {
     return &mutex;
 }

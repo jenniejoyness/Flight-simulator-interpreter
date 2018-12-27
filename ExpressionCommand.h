@@ -1,7 +1,3 @@
-//
-// Created by jennie on 12/17/18.
-//
-
 #ifndef MILLSTONE_EXPRESSIONCOMMAND_H
 #define MILLSTONE_EXPRESSIONCOMMAND_H
 
@@ -11,10 +7,12 @@
 
 class ExpressionCommand : public Expression {
 private:
-    Command* command;
+    Command *command;
 public:
-    ExpressionCommand(Command* command);
-    Command* getCommand();
+    ExpressionCommand(Command *command);
+
+    Command *getCommand();
+
     double Calculate() override;
     //~ExpressionCommand();
 

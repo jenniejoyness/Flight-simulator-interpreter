@@ -1,7 +1,3 @@
-//
-// Created by jennie on 12/20/18.
-//
-
 #ifndef MILLSTONE_CONDITIONOPERATORS_H
 #define MILLSTONE_CONDITIONOPERATORS_H
 
@@ -11,12 +7,17 @@
 
 class ConditionOperators {
 public:
-    bool smaller(Expression* left, Expression* right);
-    bool bigger(Expression* left, Expression* right);
-    bool smallerEqual(Expression* left, Expression* right);
-    bool biggerEqual(Expression* left, Expression* right);
-    bool equal(Expression* left, Expression* right);
-    bool notEqual(Expression* left, Expression* right);
+    bool smaller(Expression *left, Expression *right);
+
+    bool bigger(Expression *left, Expression *right);
+
+    bool smallerEqual(Expression *left, Expression *right);
+
+    bool biggerEqual(Expression *left, Expression *right);
+
+    bool equal(Expression *left, Expression *right);
+
+    bool notEqual(Expression *left, Expression *right);
 
 };
 

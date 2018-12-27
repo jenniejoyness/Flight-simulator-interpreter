@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/19/18.
-//
-
 #include <strings.h>
 #include <cstring>
 #include <unistd.h>
@@ -17,15 +13,13 @@ void EqualCommand::doCommand() {
     data->updateSymbleTable(varTarget, value);
     //getting the path of the var
     string path = data->getPath(varTarget);
-    path = path.substr(1, path.size()-2);
+    path = path.substr(1, path.size() - 2);
     string message = "set " + path + " " + to_string(value) + "\r\n";
     //sending message to simulator
     sendMessage(message);
 }
 
-/*
- * set parameters
- */
+
 void EqualCommand::setParameters(vector<string> params, Data *data) {
     ShuntingYard shuntingYard(data);
     this->data = data;
@@ -37,9 +31,9 @@ void EqualCommand::setParameters(vector<string> params, Data *data) {
  * sends a message to the simulator, updating the simulator on the changes made by the client
  */
 void EqualCommand::sendMessage(string str) {
-    int sockfd =  this->data->getClientId();
+    int sockfd = this->data->getClientId();
     int n;
-    char* s = const_cast<char*>(str.c_str());
+    char *s = const_cast<char *>(str.c_str());
     /* Send message to the server */
     n = write(sockfd, s, strlen(s));
     if (n < 0) {

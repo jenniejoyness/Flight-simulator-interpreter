@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/26/18.
-//
-
 #ifndef MILLSTONE_PLUS_H
 #define MILLSTONE_PLUS_H
 

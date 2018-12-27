@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/19/18.
-//
-
 #ifndef MILLSTONE_COSTUMERSOCKET_H
 #define MILLSTONE_COSTUMERSOCKET_H
 
@@ -17,6 +13,7 @@
 #include <sys/socket.h>
 #include <map>
 #include <netinet/in.h>
+
 using namespace std;
 
 
@@ -25,8 +22,10 @@ class ClientSocket {
 
 public:
     ClientSocket();
-    static void* openSocket(void* arg);
-    void* getSocket(void* arg);
+
+    static void *openSocket(void *arg);
+
+    void *getSocket(void *arg);
 
 };
 

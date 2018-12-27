@@ -1,7 +1,3 @@
-//
-// Created by jennie on 12/20/18.
-//
-
 #include "ConditionOperators.h"
 
 bool ConditionOperators::bigger(Expression *left, Expression *right) {

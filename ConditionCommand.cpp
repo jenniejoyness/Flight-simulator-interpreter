@@ -1,11 +1,7 @@
-//
-// Created by renana on 12/22/18.
-//
-
 #include <cstring>
 #include "ConditionCommand.h"
 
-void ConditionCommand::setCommandsParam(vector<vector<string>> commands, map<string, ExpressionCommand*> commandMap) {
+void ConditionCommand::setCommandsParam(vector<vector<string>> commands, map<string, ExpressionCommand *> commandMap) {
     this->commands = commands;
     this->commandMap = commandMap;
 }
@@ -17,7 +13,7 @@ bool ConditionCommand::isConditionOperator(char c) {
     return false;
 }
 
-bool ConditionCommand::stuff(vector<string> condition) {
+bool ConditionCommand::calculateCondition(vector<string> condition) {
     //erase "while"
     condition.erase(condition.begin());
     if (condition.back() == "{") {
@@ -41,8 +37,8 @@ bool ConditionCommand::stuff(vector<string> condition) {
         i++;
     }
     ShuntingYard shuntingYard(data);
-    Expression* leftExp = shuntingYard.infixToPostfix(left);
-    Expression* rightExp = shuntingYard.infixToPostfix(right);
+    Expression *leftExp = shuntingYard.infixToPostfix(left);
+    Expression *rightExp = shuntingYard.infixToPostfix(right);
     ConditionOperators conditionOperators;
     if (op == "<")
         return conditionOperators.smaller(leftExp, rightExp);
@@ -50,7 +46,7 @@ bool ConditionCommand::stuff(vector<string> condition) {
         return conditionOperators.smallerEqual(leftExp, rightExp);
     if (op == ">")
         return conditionOperators.bigger(leftExp, rightExp);
-    if(op == ">=")
+    if (op == ">=")
         return conditionOperators.biggerEqual(leftExp, rightExp);
     if (op == "==")
         return conditionOperators.equal(leftExp, rightExp);
@@ -58,10 +54,11 @@ bool ConditionCommand::stuff(vector<string> condition) {
         return conditionOperators.notEqual(leftExp, rightExp);
 }
 
-void ConditionCommand::commandExecute(vector<vector<string>> commands, Reader* reader) {
+void ConditionCommand::commandExecute(vector<vector<string>> commands, Reader *reader) {
     for (auto command : commands) {
         //if the command is not a while command send to parser to execute
-        if (strstr(command[0].c_str(), "while") == NULL && strstr(command[0].c_str(), "if") == NULL) {
+        if (strstr(command[0].c_str(), "while") == nullptr &&
+            strstr(command[0].c_str(), "if") == nullptr) {
             reader->parser(command);
             //otherwise send to condition parser
         } else {

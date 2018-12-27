@@ -1,4 +1,3 @@
-
 #include "Num.h"
 
 Num::Num(double num) : num(num) {}

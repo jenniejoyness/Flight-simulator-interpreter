@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/18/18.
-//
-
 #ifndef MILLSTONE_SOCKET_H
 #define MILLSTONE_SOCKET_H
 
@@ -19,9 +15,9 @@
 
 using namespace std;
 
-class ServerSocket{
+class ServerSocket {
 public:
-    static void* openSocket(void* arg);
+    static void *openSocket(void *arg);
 };
 
 

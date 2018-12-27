@@ -1,3 +1,6 @@
+//
+// Created by jennie on 12/26/18.
+//
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -7,13 +10,13 @@
 #include <regex>
 #include <unistd.h>
 
-using namespace std;
-
-ifstream file;
-int main() {
+#include "Runner.h"
+void Runner::run(char *fileName) {
     map<string, ExpressionCommand*> commandMap = GetCommandMap::getMap();
     Data* data = new Data();
-    file.open("script.txt", ifstream::in | ifstream::app);
+    this->data = data;
+    ifstream file;
+    file.open(fileName, ifstream::in | ifstream::app);
     if (!file) {
         throw "Failed opening file";
     }
@@ -52,8 +55,13 @@ int main() {
 
     }
 
-    cout<<"finished"<<endl;
+    data->setShouldStop(false);
     delete reader;
-    return 0;
-
 }
+
+/*
+void Runner::exit() {
+    close(data->getServerId());
+    close(data->getClientId());
+    delete(data);
+}*/

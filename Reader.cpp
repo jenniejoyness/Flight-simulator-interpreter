@@ -11,7 +11,9 @@
 }*/
 Reader::Reader(Data *data, const map<string, ExpressionCommand *> &commandMap) : commandMap(commandMap), data(data) {}
 
-
+/*
+ * adds spaces to needed places in line and splits by spaces
+ */
 vector<string> Reader::lexer(string &line) {
     string addedSpaces = addSpaces(line);
     vector<string> chopped = split(addedSpaces, " ");
@@ -19,25 +21,26 @@ vector<string> Reader::lexer(string &line) {
 }
 
 /*
- *
+ *  finds the command in command map and executes the command
  */
 void Reader::parser(vector<string> lineData) {
     ExpressionCommand *expression;
     //if in the first place found a symbol - is equal command
-     if (data->isVar(lineData[0])) {
+    if (data->isVar(lineData[0])) {
         //find the correct expression in map
         expression = commandMap.find(lineData[1])->second;
         //erase the second parameter which is the command
         lineData.erase(lineData.begin() + 1);
     } else {
-    expression = commandMap.find(lineData[0])->second;
-    //erase the command
-    lineData.erase(lineData.begin());
-     }
+        expression = commandMap.find(lineData[0])->second;
+        //erase the command
+        lineData.erase(lineData.begin());
+    }
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(lineData, data);
     //will calculate parameters and execute the command
     expression->Calculate();
+    //delete expression;
 }
 
 
@@ -107,6 +110,9 @@ void Reader::addParameter(int j, int i, vector<string> &params, vector<string> l
     params.push_back(s);
 }
 
+/*
+ * groups the correct pieces of the parameters together and find the parameters
+ */
 vector<string> Reader::findParameters(vector<string> line) {
     int i = 0;
     int startIndexParameter = 0;
@@ -236,7 +242,7 @@ void Reader::conditionParser(string str) {
     ExpressionCommand *expression = commandMap.find(condition[0])->second;
     //setting the parameters of the expressioncommand
     expression->getCommand()->setParameters(condition, data);
-    dynamic_cast<ConditionCommand*>(expression->getCommand())->setCommandsParam(params, commandMap);
+    dynamic_cast<ConditionCommand *>(expression->getCommand())->setCommandsParam(params, commandMap);
     //will calculate parameters and execute the command
     expression->Calculate();
 }

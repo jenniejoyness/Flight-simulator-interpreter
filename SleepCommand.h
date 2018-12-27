@@ -4,12 +4,13 @@
 
 #include "Command.h"
 
-class SleepCommand : public Command{
+class SleepCommand : public Command {
     int seconds;
-    Data* data;
+    Data *data;
 public:
-void setParameters(vector<string> params, Data *data) override;
-void doCommand() override;
+    void setParameters(vector<string> params, Data *data) override;
+
+    void doCommand() override;
 };
 
 

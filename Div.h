@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/26/18.
-//
-
 #ifndef MILLSTONE_DIV_H
 #define MILLSTONE_DIV_H
 
@@ -11,6 +7,7 @@ class Div : public BinaryExpression {
 
 public:
     Div(Expression *leftExpression, Expression *rightExpression);
+
     double Calculate() override;
 };
 

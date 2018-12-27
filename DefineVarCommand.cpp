@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/18/18.
-//
-
 #include "DefineVarCommand.h"
 #include <cstring>
 #include "DefineVarCommand.h"
@@ -11,20 +7,24 @@
 void DefineVarCommand::setParameters(vector<string> params, Data *data) {
     ShuntingYard shuntingYard(data);
     //if has bind in command
-    if(params.size() == 4){
+    if (params.size() == 4) {
+
         this->bind = true;
         this->value = params[3];
-        //does not have bind
+
     } else {
+
         this->bind = false;
         this->value = to_string(shuntingYard.infixToPostfix(params[2])->Calculate());
     }
+
     this->var = params[0];
     this->data = data;
 
 }
+
 void DefineVarCommand::doCommand() {
-    if(bind) {
+    if (bind) {
         binding();
     } else {
         changingVarValue();
@@ -38,16 +38,16 @@ void DefineVarCommand::binding() {
     //todo if path not in valuepath?
     //todo - check if find works with char
     //found brackets, need to add path
-    if(value.find('\"') == 0) {
-        data->addVarToPath(var,value);
+    if (value.find('\"') == 0) {
+        data->addVarToPath(var, value);
         // add to symbol table
-        data->addVarToSymbleTable(var,data->getValueByPath(value));
+        data->addVarToSymbleTable(var, data->getValueByPath(value));
     } else {
         //find path to value var
         string path = data->getPathOfVar(value);
-        data->addVarToPath(var,path);
+        data->addVarToPath(var, path);
         // add to symbol table
-        data->addVarToSymbleTable(var,data->getValueByPath(path));
+        data->addVarToSymbleTable(var, data->getValueByPath(path));
     }
 }
 
@@ -70,5 +70,5 @@ void DefineVarCommand::changingVarValue() {
     } else {
         data->addVarToSymbleTable(var,stoi(value));
     }*/
-    data->addVarToSymbleTable(var,stod(value));
+    data->addVarToSymbleTable(var, stod(value));
 }

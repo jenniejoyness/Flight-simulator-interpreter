@@ -79,7 +79,9 @@ Expression* ShuntingYard::infixToPostfix(string str){
     return stringToExpression(output);
 }
 
-
+/*
+ * creating expression objects by the operator sign
+ */
 Expression* ShuntingYard::stringToExpression(vector<string> postfix){
     stack<Expression*> stack;
     Expression* newExpression;

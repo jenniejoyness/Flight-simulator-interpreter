@@ -1,7 +1,3 @@
-//
-// Created by renana on 12/26/18.
-//
-
 #ifndef MILLSTONE_MULT_H
 #define MILLSTONE_MULT_H
 
@@ -11,7 +7,8 @@
 class Mult : public BinaryExpression {
 public:
     Mult(Expression *leftExpression, Expression *rightExpression);
-    double Calculate()override;
+
+    double Calculate() override;
 };
 
 #endif //MILLSTONE_MULT_H

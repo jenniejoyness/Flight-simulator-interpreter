@@ -17,8 +17,6 @@ struct MyParams {
  * opens the server socket and waits for the flight simulators connection.
  * reads the updates that the simulator sends to this socket
  * we will update the info given to the symbolmap in data
- * TODO ADD VARS TO VECTOR
- * TODO - DO WE NEED A LOCK??
  */
 void *ServerSocket::openSocket(void *arg) {
     struct MyParams *params = (struct MyParams *) arg;
@@ -31,7 +29,6 @@ void *ServerSocket::openSocket(void *arg) {
 
     string buff;
     string leftOvers;
-    //pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
     /* If connection is established then start communicating */
     while (data->isShouldStop()) {
         bzero(buffer, 256);

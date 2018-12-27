@@ -1,20 +1,16 @@
-//
-// Created by renana on 12/19/18.
-//
-
 #include "ClientSocket.h"
 #include "Data.h"
 
 struct MyParams {
     int port;
     string ipAddress;
-    Data* data;
+    Data *data;
 };
 
 /*
- * openning client socket tats connects the simulator
+ * opening client socket tats connects the simulator
  */
-void* ClientSocket::openSocket(void *arg) {
+void *ClientSocket::openSocket(void *arg) {
 
     struct MyParams *params = (struct MyParams *) arg;
 

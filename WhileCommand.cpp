@@ -1,7 +1,3 @@
-//
-// Created by jennie on 12/20/18.
-//
-
 #include <cstring>
 #include "WhileCommand.h"
 #include "ShuntingYard.h"
@@ -10,7 +6,7 @@
 
 void WhileCommand::doCommand() {
     Reader *reader = new Reader(data, commandMap);
-    while (stuff(condition)) {
+    while (calculateCondition(condition)) {
         commandExecute(commands, reader);
     }
     delete reader;
